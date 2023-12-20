@@ -1,0 +1,51 @@
+
+table {
+	margin-bottom: 0.3em;
+}
+
+td {
+	padding: 0.3em;
+    line-height: 1.2;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 1.0rem;
+}
+
+/*       */
+.userinfobox td.label {
+    vertical-align: bottom;
+}
+
+
+.head {
+    font-weight: bold;
+    color: #105ba7;
+    background-color: #ddd;
+}
+
+.odd {
+    font-weight: bold;
+    background-color: #eee;
+}
+
+.even {
+    font-weight: bold;
+    background-color: #eee;
+}
+
+.tabtree .tabrow0 li {
+	margin-right: 0px;
+}
+

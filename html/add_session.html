@@ -1,0 +1,251 @@
+<style type="text/css">
+  <?php include("html.css")?>
+</style>
+
+<script language="JavaScript">
+ 
+valid   = new Array("endyear","endmonth","endday","Mon","Tue","Wed","Thu","Fri","Sat","Sun","period","multi_mode");
+invalid = new Array("desc", "one_mode");
+
+function valid_item(ischecked)
+{
+  if(ischecked==true) {
+    for(i=0; i<valid.length; i++) {
+      document.gsess.elements[valid[i]].disabled = false;
+    }
+    for(i=0; i<invalid.length; i++) {
+      document.gsess.elements[invalid[i]].disabled = true;
+    }
+  }
+  else {
+    for(i=0; i<valid.length; i++) {
+      document.gsess.elements[valid[i]].disabled = true;
+    }
+    for(i=0; i<invalid.length; i++) {
+      document.gsess.elements[invalid[i]].disabled = false;
+    }
+  }
+}
+
+</script>
+
+
+
+<table align="center" class="generalbox">
+  <tr>
+    <td colspan="2" align="center">
+<!--
+      <table border="0" style="margin: -20px 0px -50px 0px;">
+-->
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr><td>
+          <?php echo $OUTPUT->heading(get_string('createmultiplesessions','block_autoattend').' :: '.$course->fullname); ?>
+        </td></tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="generalboxcontent">
+
+      <table  border="0" align="center" cellpadding="5" cellspacing="0">
+<!--
+        <tr><td height="15" colspan="2"></td></tr>
+-->
+        <form name="gsess" method="post" action="<?php echo $wwwMyURL;?>">
+          <tr>
+            <td align="right" valign="top">&nbsp;</td>
+            <td>
+              <input name="addmulti" type="checkbox" value="1" checked="checked" onclick="valid_item(this.checked);" />
+              <?php print_string('sessionmulti', 'block_autoattend')?>
+            </td>
+          </tr>
+          <tr>
+            <td align="right" valign="top">
+              <div style="font-weight:bold;"><?php print_string('sessionmethod', 'block_autoattend')?>: </div>
+            </td>
+            <td>
+              <input type='radio' name='method' value='A' />
+                <?php print_string('Amethodfull', 'block_autoattend')?>&nbsp;&nbsp;
+              <input type='radio' name='method' value='S' checked='checked' />
+                <?php print_string('Smethodfull', 'block_autoattend')?>&nbsp;&nbsp;
+              <input type='radio' name='method' value='M' />
+                <?php print_string('Mmethodfull', 'block_autoattend')?>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php print_string('sessionstartdate','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <?php 
+                echo html_writer::select_time($date_name1.'s', 'start'.$date_name1, 0);
+                echo html_writer::select_time($date_name2.'s', 'start'.$date_name2, 0);
+                echo html_writer::select_time($date_name3.'s', 'start'.$date_name3, 0);
+              ?>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php print_string('sessionenddate','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <?php 
+                echo html_writer::select_time($date_name1.'s', 'end'.$date_name1, 0);
+                echo html_writer::select_time($date_name2.'s', 'end'.$date_name2, 0);
+                echo html_writer::select_time($date_name3.'s', 'end'.$date_name3, 0);
+              ?>
+            </td>
+          </tr>
+          <tr>
+            <td align="right" valign="top">
+              <div style="font-weight:bold;"><?php print_string('sessiondays','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <input type="checkbox" name="sdays[]" value="Mon" id="Mon" />&nbsp;<?php print_string('monday',   'block_autoattend')?>&nbsp;&nbsp;
+              <input type="checkbox" name="sdays[]" value="Tue" id="Tue" />&nbsp;<?php print_string('tuesday',  'block_autoattend')?>&nbsp;&nbsp;
+              <input type="checkbox" name="sdays[]" value="Wed" id="Wed" />&nbsp;<?php print_string('wednesday','block_autoattend')?>&nbsp;&nbsp;
+              <input type="checkbox" name="sdays[]" value="Thu" id="Thu" />&nbsp;<?php print_string('thursday', 'block_autoattend')?>&nbsp;&nbsp;
+              <input type="checkbox" name="sdays[]" value="Fri" id="Fri" />&nbsp;<?php print_string('friday',   'block_autoattend')?>&nbsp;&nbsp;
+              <input type="checkbox" name="sdays[]" value="Sat" id="Sat" />&nbsp;<?php print_string('saturday', 'block_autoattend')?>&nbsp;&nbsp;
+              <input type="checkbox" name="sdays[]" value="Sun" id="Sun" />&nbsp;<?php print_string('sunday',   'block_autoattend')?>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php print_string('period','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <?php 
+                echo html_writer::select(array(1=>1,2,3,4,5,6,7,8), 'period', 1, false);
+                echo '&nbsp;'.get_string('week','block_autoattend');
+              ?>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php print_string('sessionstarttime','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <?php 
+                echo html_writer::select_time('hours', 'shour', $nowtime + (MIN_INTVL_TIME-1)*ONE_MIN_TIME);
+                echo '&nbsp;'.get_string('hour','block_autoattend');
+                echo '&nbsp;'.html_writer::select_time('minutes', 'smin', $nowtime, MIN_INTVL_TIME);
+                echo '&nbsp;'.get_string('minute','block_autoattend');
+              ?>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php print_string('sessionduration','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <?php 
+                $dhours = array(1=>'00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23');
+                echo html_writer::select($dhours, 'dhour', 1, false).'&nbsp;'.get_string('duration_hour','block_autoattend').'&nbsp';
+                $dmints = array(1=>'00','05','10','15','20','25','30','35','40','45','50','55');
+                echo html_writer::select($dmints, 'dmin', 7, false).'&nbsp;'.get_string('minute','block_autoattend');
+              ?>
+            </td>
+          </tr>
+
+          <!-- Use Summer Time -->
+          <?php if ($use_summertime) { ?>
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php print_string('sessionsummertime','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <?php 
+                $summer = array(1=>-2,-1,0,1,2);
+                echo html_writer::select($summer, 'summer', 3, false).'&nbsp;'.get_string('hours','block_autoattend');
+              ?>
+            </td>
+          </tr>
+          <?php } ?>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php print_string('sessionlatetime','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <?php 
+                $ltimes = array(1=>0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180);
+                echo html_writer::select($ltimes, 'lmin', 1, false).'&nbsp;'.get_string('minute','block_autoattend');
+              ?>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">
+              <?php $attendkey_help = $OUTPUT->help_icon('attendkey','block_autoattend');?>
+              <div style="font-weight:bold;"><?php echo $attendkey_help.'&nbsp;'.get_string('attendkey','block_autoattend');?>:</div>
+            </td>
+            <td>
+              <input type="text" name="attendkey" size="40" maxlength="30" value="" />&nbsp;&nbsp;
+              <input type="checkbox" name="randomkey" value="1" checked="checked" />
+              <?php print_string('setrandomkey','block_autoattend');?>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <?php $allowip_help = $OUTPUT->help_icon('sessionallowip','block_autoattend');?>
+              <div style="font-weight:bold;"><?php echo $allowip_help.'&nbsp;'.get_string('sessionallowip','block_autoattend');?>:</div>
+            </td>
+            <td><input type="text" name="allowip" size="60" maxlength="250" value="" /></td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('denysameip','block_autoattend');?>:</div>
+            </td>
+            <td><input type="checkbox" name="denysameip" value="1" /></td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('description','block_autoattend');?>:</div>
+            </td>
+            <td><input type="text" name="desc" size="60" maxlength="100" value="" disabled="disabled" /></td>
+          </tr>
+
+          <?php if ($classes) { ?>
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('classname','block_autoattend');?>:</div>
+            </td>
+            <td>
+              <select name="class">
+                <option value="0" ><?php print_string('allstudents','block_autoattend');?></option>
+                <?php foreach ($classes as $class) { ?>
+                  <option value="<?php echo $class->id;?>" ><?php echo $class->name;?></option>
+                <?php } ?>
+              </select>
+            </td>
+          </tr>
+          <?php } ?>
+
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>
+              <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course" value="<?php echo $course->id?>" />
+              <input type="hidden" name="mode"id="one_mode"   value="one" disabled="disabled" />
+              <input type="hidden" name="mode"id="multi_mode" value="multi" />
+              <input type="submit" name="addmultiplesessions" value="<?php print_string('addsession','block_autoattend')?>" />
+            </td>
+          </tr>
+
+        </form>
+
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

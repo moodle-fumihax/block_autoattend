@@ -1,0 +1,134 @@
+<style type="text/css">
+  <?php include("html.css")?>
+</style>
+
+<script type="text/javascript">
+function select_all_radio_in(elTagName, elClass, start, end) 
+{
+    var inputs = document.getElementsByTagName('INPUT');
+
+    var radio = [];
+    var lrd = 0;
+    var len = inputs.length;
+
+    for (var i=0; i<len; i++) {
+        var pnode = inputs[i].parentNode;
+        if (pnode.nodeName.toUpperCase()==elTagName.toUpperCase()) {
+            if (pnode.className.toUpperCase()==elClass.toUpperCase()) {
+                radio[lrd++] = inputs[i];
+            }
+        }
+    }
+
+    start = Math.min(lrd, start);
+    end   = Math.min(lrd, end);
+    for(var i=start; i<end; i++) {
+        if(radio[i].type=='radio') {
+            radio[i].checked = 'checked';
+        }
+    }
+}
+</script>
+
+
+<table align="center" class="generalbox">
+  <tr>
+    <td align="center">
+      <?php echo $OUTPUT->heading(get_string('updatesessionattend','block_autoattend').' :: '.$course->fullname); ?>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+<!--
+      <table border="0" style="margin: -20px 0px -30px 0px;">
+-->
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr>
+          <td><?php autoattend_select_attend($attend, $settings, $wwwMyURL, $url_options_attend);?></td>
+          <td>&nbsp;</td>
+          <td><?php autoattend_select_user_class($classid, $classes, $wwwMyURL, $url_options_class);?></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <table border="0" width="100%" cellpadding="0" cellspacing="0" style="border-color:#eee; margin: 0px 0px 0px 0px;">
+        <tr>
+          <td>
+            <form name="flush" action="<?php echo $wwwBlock;?>/refreshSessions.php" method="post">
+              <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course"  value="<?php echo $course->id;?>" />
+              <input type="hidden" name="class"   value="<?php echo $classid;?>" />
+              <input type="hidden" name="backurl" value="<?php echo $this_url->out();?>" />
+              <input type="submit" value="<?php print_string('refreshdata','block_autoattend')?>" />
+            </form>
+          </td>
+          <?php
+            $summertime_mark = ' ';
+            $summertime = autoattend_get_summertime($sessdata->id, $use_summertime)*ONE_HOUR_TIME;
+            if ($summertime!=0) $summertime_mark = '*';
+          ?>
+          <td>
+            &nbsp;
+          </td>
+          <td>
+            <?php print_string('sessiondate','block_autoattend');?>:&nbsp; 
+            <div style="font-weight:bold;">
+              <?php echo strftime(get_string('strftimedmyw',    'block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET).$summertime_mark;?>&nbsp;
+            </div>
+          </td>
+          <td>
+            <div style="font-weight:bold;">
+              <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET);?>&nbsp;-
+              <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $sessdata->endtime   + $summertime + $TIME_OFFSET);?>&nbsp;
+            </div>
+          </td>
+          <td>
+            <?php print_string('callmethod', 'block_autoattend');?>:&nbsp;
+            <div style="font-weight:bold;"><?php print_string($sessdata->method.'methodfull', 'block_autoattend');?></div>
+          </td>
+          <td>
+            <?php print_string('description', 'block_autoattend');?>:&nbsp;
+            <div style="font-weight:bold;"><?php echo ($sessdata->description ? $sessdata->description : get_string('nodescription', 'block_autoattend'));?></div>
+          </td>
+          <td>
+            <?php print_string('classname', 'block_autoattend');?>:&nbsp;
+            <div style="font-weight:bold;"><?php echo autoattend_get_user_classname($sessdata->classid);?></div>
+          </td>
+          <td>
+            <div style="font-weight:bold;"><?php echo '('.$attcount.'/'.$totalmember.')';?></div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <form name="takeattend" method="post" action="<?php echo $wwwBlock;?>/attendaction.php">
+  <tr>
+    <td> 
+      <input type="hidden" name="sesskey"  value="<?php echo sesskey();?>" />
+      <input type="hidden" name="course"   value="<?php echo $course->id;?>" / >
+      <input type="hidden" name="class"    value="<?php echo $classid;?>" />
+      <input type="hidden" name="attsid"   value="<?php echo $attsid;?>" />
+      <input type="hidden" name="attend"   value="<?php echo $attend;?>" />
+      <input type="hidden" name="fromform" value="updateAttendance" />
+      <?php updateAttendance_show_table($course, $students, $sessdata, $settings, $attsid, $attend, $classid, $name_pattern, $order, $isteacher);?>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+<!--
+      <?php if ($isteacher) { ?>
+        <input type="submit" name="esv" value="<?php print_string('ok');?>" />&nbsp;&nbsp;
+        <input type="reset"  name="esv" value="<?php print_string('reset')?>" />&nbsp;&nbsp;
+      <?php } ?>
+      <input type="submit" name="esv" value="<?php print_string('return', 'block_autoattend')?>" />
+-->
+    </td>
+  </tr>
+  </form>
+</table>
+

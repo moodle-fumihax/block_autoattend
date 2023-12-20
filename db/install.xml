@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/autoattend/db" VERSION="20130507" COMMENT="XMLDB file for Auto Attend blocks/autoattend"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="autoattend_sessions" COMMENT="Session Data of Auto Attendance block" NEXT="autoattend_students">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="classid"/>
+        <FIELD NAME="classid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="courseid" NEXT="creator"/>
+        <FIELD NAME="creator" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="classid" NEXT="sessdate"/>
+        <FIELD NAME="sessdate" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="creator" NEXT="starttime"/>
+        <FIELD NAME="starttime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="sessdate" NEXT="endtime"/>
+        <FIELD NAME="endtime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="starttime" NEXT="summertime"/>
+        <FIELD NAME="summertime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="endtime" NEXT="latetime"/>
+        <FIELD NAME="latetime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="summertime" NEXT="takenby"/>
+        <FIELD NAME="takenby" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="latetime" NEXT="timetaken"/>
+        <FIELD NAME="timetaken" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="takenby" NEXT="method"/>
+        <FIELD NAME="method" TYPE="char" LENGTH="1" NOTNULL="true" DEFAULT="S" SEQUENCE="false" PREVIOUS="timetaken" NEXT="attendkey"/>
+        <FIELD NAME="attendkey" TYPE="char" LENGTH="36" NOTNULL="false" SEQUENCE="false" PREVIOUS="method" NEXT="denysameip"/>
+        <FIELD NAME="denysameip" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="attendkey" NEXT="allowip"/>
+        <FIELD NAME="allowip" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="denysameip" NEXT="description"/>
+        <FIELD NAME="description" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="allowip" NEXT="state"/>
+        <FIELD NAME="state" TYPE="char" LENGTH="1" NOTNULL="true" DEFAULT="N" SEQUENCE="false" PREVIOUS="description" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="state"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="id" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid" NEXT="classid"/>
+        <INDEX NAME="classid" UNIQUE="false" FIELDS="classid" PREVIOUS="courseid" NEXT="sessdate"/>
+        <INDEX NAME="sessdate" UNIQUE="false" FIELDS="sessdate" PREVIOUS="classid" NEXT="starttime"/>
+        <INDEX NAME="starttime" UNIQUE="false" FIELDS="starttime" PREVIOUS="sessdate"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="autoattend_students" COMMENT="Students data of Auto Attendance Block" PREVIOUS="autoattend_sessions" NEXT="autoattend_settings">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="attsid"/>
+        <FIELD NAME="attsid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="studentid"/>
+        <FIELD NAME="studentid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="attsid" NEXT="status"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="1" NOTNULL="true" DEFAULT="Y" SEQUENCE="false" PREVIOUS="studentid" NEXT="called"/>
+        <FIELD NAME="called" TYPE="char" LENGTH="1" NOTNULL="true" DEFAULT="D" SEQUENCE="false" PREVIOUS="status" NEXT="calledby"/>
+        <FIELD NAME="calledby" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="called" NEXT="calledtime"/>
+        <FIELD NAME="calledtime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="calledby" NEXT="sentemail"/>
+        <FIELD NAME="sentemail" TYPE="int" LENGTH="3" NOTNULL="true" DEFAULT="0" SEQUENCE="false"  PREVIOUS="calledtime"  NEXT="remarks"/>
+        <FIELD NAME="remarks" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false" PREVIOUS="sentemail" NEXT="ipaddress"/>
+        <FIELD NAME="ipaddress" TYPE="char" LENGTH="42" NOTNULL="true" SEQUENCE="false" PREVIOUS="remarks"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="attsid" UNIQUE="false" FIELDS="attsid" NEXT="studentid"/>
+        <INDEX NAME="studentid" UNIQUE="false" FIELDS="studentid" PREVIOUS="attsid" NEXT="attstudentid"/>
+        <INDEX NAME="attstudentid" UNIQUE="true" FIELDS="attsid, studentid" PREVIOUS="studentid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="autoattend_settings" COMMENT="Setting of Auto Attendance Block" PREVIOUS="autoattend_students" NEXT="autoattend_classes">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="classid"/>
+        <FIELD NAME="classid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="courseid" NEXT="status"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="1" NOTNULL="true" DEFAULT="Y" SEQUENCE="false" PREVIOUS="classid" NEXT="acronym"/>
+        <FIELD NAME="acronym" TYPE="char" LENGTH="10" NOTNULL="false" DEFAULT="" SEQUENCE="false" PREVIOUS="status" NEXT="title"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="24" NOTNULL="false" DEFAULT="" SEQUENCE="false" PREVIOUS="acronym" NEXT="description"/>
+        <FIELD NAME="description" TYPE="char" LENGTH="64" NOTNULL="false" DEFAULT="" SEQUENCE="false" PREVIOUS="title" NEXT="grade"/>
+        <FIELD NAME="grade" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="description" NEXT="display"/>
+        <FIELD NAME="display" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="grade" NEXT="seqnum"/>
+        <FIELD NAME="seqnum" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="display"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="autoattend_classes" COMMENT="Class Data for Auto Attendance Block" PREVIOUS="autoattend_settings" NEXT="autoattend_classifies">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="creator"/>
+        <FIELD NAME="creator" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="courseid" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" PREVIOUS="creator" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="name"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="autoattend_classifies" COMMENT="Classification for Auto Attendance Block" PREVIOUS="autoattend_classes">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="studentid"/>
+        <FIELD NAME="studentid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="courseid" NEXT="classid"/>
+        <FIELD NAME="classid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="studentid"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid" NEXT="studentid"/>
+        <INDEX NAME="studentid" UNIQUE="false" FIELDS="studentid" PREVIOUS="courseid" NEXT="crsstudentid"/>
+        <INDEX NAME="crsstudentid" UNIQUE="true" FIELDS="courseid, studentid" PREVIOUS="studentid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

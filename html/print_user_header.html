@@ -1,0 +1,94 @@
+<style type="text/css">
+  <?php include("html.css")?>
+</style>
+
+<div align="center" style="overflow-x: auto;">
+
+<table class="userinfobox">
+  <?php if (!$printing and $classid>=0) { ?>
+    <tr>
+      <td colspan="2" class="generalboxcontent">
+        <div align="right">
+          <a href="<?php echo $wwwUser;?>/view.php?id=<?php echo $userid;?>&amp;course=<?php echo $courseid;?>" target="_blank">
+            [<?php print_string('profile');?>]
+          </a>&nbsp;
+          <?php if ($isteacher) { ?>
+            <a href="<?php echo $wwwReport;?>/user.php?id=<?php echo $userid;?>&amp;course=<?php echo $courseid;?>&amp;mode=all" target="_blank">
+              [<?php print_string('activityreport');?>]
+            </a>&nbsp;
+            <a href="<?php echo $wwwMesg;?>/index.php?id=<?php echo $userid;?>&amp;viewing=course_<?php echo $courseid;?>" target="_blank">
+              [<?php print_string('messageselectadd');?>]
+            </a>&nbsp;
+          <?php } ?>
+          <a href="<?php echo $wwwGrade;?>/index.php?userid=<?php echo $userid;?>&amp;id=<?php echo $courseid;?>" target="_blank">
+            [<?php print_string('grade');?>]
+          </a>&nbsp;
+          <a href="<?php echo $wwwBlock;?>/index.php?course=<?php echo $courseid;?>&amp;student=<?php echo $userid;?>&amp;printing=yes" target="_blank">
+            [<?php print_string('forprinting','block_autoattend');?>]
+          </a>
+        </div>
+      </td>
+    </tr>
+  <?php } ?>
+
+  <tr>
+    <td class="generalboxcontent">
+      <table border="0" cellpadding="0" cellspacing="0" class="list">
+        <tr>
+          <td>
+            <?php if (!$printing) { 
+              $pic_options = array('size'=>60, 'link'=>true, 'alttext'=>true, 'courseid'=>$courseid, 'popup'=>true);
+              echo $OUTPUT->user_picture($user, $pic_options);
+            } ?>
+          </td>
+          <td valign="bottom">
+            <font size="+1"><div style="font-weight:bold;"><?php echo $username.'&nbsp;&nbsp;'.$disp_idnum;?></div></font>
+          </td>
+        </tr>
+      </table>
+      <hr />
+
+      <table border="0" cellpadding="0" cellspacing="0" class="list">
+        <?php 
+          if ($CFG->output_idnumber) {
+          	autoattend_print_user_row('ID&nbsp;:&nbsp;', '<div style="font-weight:bold;">$user_idnum</div>');
+          }
+          autoattend_print_user_row(get_string('coursename','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$course->fullname.'</div>');
+          autoattend_print_user_row(get_string('classname', 'block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$classname.'</div>');
+          if ($classid>=0) {        // !出欠から除外
+            autoattend_print_user_row(get_string('sessionscompleted','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$complete.'</div>');
+            $absence = 0;
+            foreach($settings as $set) {
+                if ($set->status=='X') {
+                    $absence+= $summary[$set->status];
+                }
+                else if ($set->status!='Y' and $set->display) {  // X, Y 以外
+                    autoattend_print_user_row($settings[$set->status]->description.'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$summary[$set->status].'</div>');
+                }
+            }
+            autoattend_print_user_row($settings['X']->description.'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$absence.'</div>'); // X
+            autoattend_print_user_row(get_string('attendnpercent','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$npercent.'</div>');
+            //autoattend_print_user_row(get_string('attendgrade','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$grade.' / '.$maxgrade.'</div>');
+            autoattend_print_user_row(get_string('attendgrade','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$grade.' / '.$pgrade.'</div>');
+            autoattend_print_user_row(get_string('attendgpercent','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$gpercent.'</div>');
+          }
+        ?>
+      </table>
+
+      <div align="left">
+      <?php if ($isteacher and !$printing and $classid>=0) { ?>
+        <form name="updateuserinfo" method="post" action="<?php echo $wwwBlock;?>/updateUser.php">
+          <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+          <input type='hidden' name='course'  value="<?php echo $courseid;?>" />
+          <input type='hidden' name='userid'  value="<?php echo $user->id;?>" />
+          <input type='submit' name='submit'  value="<?php print_string('correctuser','block_autoattend');?>" />
+        </form>
+      <?php } else if (!$printing) { ?>
+        <form name="updateuserinfo" method="get" action="<?php echo $CFG->wwwroot;?>/course/view.php">
+          <input type='hidden' name='id' value="<?php echo $courseid;?>" />
+          <input type='submit' name='submit' value="<?php echo get_string('returnbutton', 'block_autoattend');?>" />
+        </form>
+      <?php } ?>
+      </div>
+      <br />    
+

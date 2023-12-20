@@ -1,0 +1,268 @@
+<style type="text/css">
+  <?php include("html.css")?>
+</style>
+
+<table align="center" class="generalbox">
+  <tr>
+    <td align="center">
+<!--
+      <table border="0" style="margin: -20px 0px -20px 0px;">
+-->
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr><td>
+          <?php 
+		    echo $OUTPUT->heading(get_string('updatesession','block_autoattend').' :: '.$course->fullname);
+          ?>
+        </td></tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="generalboxcontent">
+      <table border="0" align="center" cellpadding="0" cellspacing="0">
+        <?php if ($att->state!='N') { ?>
+        <tr>
+          <td align="right">
+            <div style="font-weight:bold;"><?php print_string('callstate','block_autoattend')?>: </div>
+          </td>
+          <td>
+            <form name="returntoN" method="post" action="<?php echo $wwwBlock;?>/returntoN.php">
+              <?php print_string('Cstatefull','block_autoattend')?>&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course"  value="<?php echo $course->id;?>" />
+              <input type="hidden" name="class"   value="<?php echo $classid;?>" />
+              <input type="hidden" name="attsid"  value="<?php echo $attsid;?>" />
+              <input type="submit" name="submit"  value="<?php print_string('returntoN','block_autoattend');?>" />
+            </form>
+          </td>
+        </tr>
+
+        <tr><td colspan="2"><hr /></td></tr>
+        <?php } ?>
+
+        <form name="gsess" method="post" action="<?php echo $wwwMyURL;?>">
+          <tr>
+            <td align="right" valign="top">
+              <div style="font-weight:bold;"><?php print_string('sessionmethod','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <input type='radio' name='newmethod' value='A' <?php echo $acheck;?> />
+                <?php print_string('Amethodfull','block_autoattend')?>&nbsp;&nbsp;
+              <input type='radio' name='newmethod' value='S' <?php echo $scheck;?> />
+                <?php print_string('Smethodfull','block_autoattend')?>&nbsp;&nbsp;
+              <input type='radio' name='newmethod' value='M' <?php echo $mcheck;?> />
+                <?php print_string('Mmethodfull','block_autoattend')?>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('olddate','block_autoattend');?>: </div>
+            </td>
+            <td>
+              <?php //echo strftime(get_string('strftimedate'), $att->sessdate + $summertime + $TIME_OFFSET);?>
+              <?php echo strftime(get_string('strftimedate'), $att->starttime + $summertime + $TIME_OFFSET);?>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('newdate','block_autoattend');?>: </div>
+            </td>
+            <td>
+              <?php 
+                $sedate = $att->sessdate;
+                echo html_writer::select_time($date_name1.'s', 'new'.$date_name1, $sedate);
+                echo html_writer::select_time($date_name2.'s', 'new'.$date_name2, $sedate);
+                echo html_writer::select_time($date_name3.'s', 'new'.$date_name3, $sedate);
+              ?>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('oldsessionstarttime','block_autoattend');?>: </div>
+            </td>
+            <td>
+              <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);?>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php print_string('newsessionstarttime','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <?php 
+                $starth = $att->starttime + $summertime;
+				if ($starth==0) $starth = 1;
+                echo html_writer::select_time('hours', 'newshour', $starth);
+                echo '&nbsp;'.get_string('hour','block_autoattend');
+                echo '&nbsp;'.html_writer::select_time('minutes', 'newsmin', $starth, 5);
+                echo '&nbsp;'.get_string('minute','block_autoattend');
+              ?>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('oldsessionduration','block_autoattend');?>: </div>
+            </td>
+            <td>
+              <?php 
+                $durtime = $att->endtime - $att->starttime;
+                if ($durtime<0) $durtime += ONE_DAY_TIME;
+                $dmin  = $durtime/ONE_MIN_TIME;
+                $dhour = floor($dmin/60);
+                $dmin  = $dmin%60;
+                echo $dhour.'&nbsp;'.get_string('duration_hour','block_autoattend').'&nbsp;'.$dmin.'&nbsp;'.get_string('minute','block_autoattend');
+              ?>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('newsessionduration','block_autoattend');?>: </div>
+            </td>
+            <td>
+              <?php 
+                $dhours = array(1=>'00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23');
+                echo html_writer::select($dhours, 'newdhour', $dhour+1, false).'&nbsp;'.get_string('duration_hour','block_autoattend').'&nbsp';
+                $minidx = floor($dmin/5) + 1;
+                $dmints = array(1=>'00','05','10','15','20','25','30','35','40','45','50','55');
+                echo html_writer::select($dmints, 'newdmin', $minidx, false).'&nbsp;'.get_string('minute','block_autoattend');
+              ?>
+            </td>
+          </tr>
+
+          <!-- Use Summer Time -->
+          <?php if ($use_summertime) { ?> 
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"> <?php echo get_string('oldsessionsummertime','block_autoattend'); ?>: </div>
+            </td>
+            <td>
+              <?php echo $att->summertime.'&nbsp;'.get_string('hours', 'block_autoattend');?>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php print_string('newsessionsummertime','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <?php 
+                $summers = array(1=>-2,-1,0,1,2,3);
+                echo html_writer::select($summers, 'newsummer', $att->summertime+3, false).'&nbsp;'.get_string('hours','block_autoattend');
+              ?>
+            </td>
+          </tr>
+          <?php } ?> 
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('oldsessionlatetime','block_autoattend');?>: </div>
+            </td>
+            <td>
+              <?php echo $late_time.'&nbsp;'.get_string('minute', 'block_autoattend');?>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php print_string('newsessionlatetime','block_autoattend')?>: </div>
+            </td>
+            <td>
+              <?php 
+                $ltimes = array(1=>0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180);
+                echo html_writer::select($ltimes, 'newlmin', $late_order, false);
+                echo '&nbsp;'.get_string('minute','block_autoattend');
+              ?>
+            </td>
+          </tr>
+         
+          <tr>
+            <td align="right">
+              <?php $attendkey_help = $OUTPUT->help_icon('attendkey','block_autoattend');?>
+              <div style="font-weight:bold;"><?php echo $attendkey_help.'&nbsp;'.get_string('attendkey','block_autoattend');?>:</div>
+            </td>
+            <td>
+              <input type="text" name="attendkey" size="40" maxlength="30" value="<?php echo $att->attendkey;?>" />
+              <input type="checkbox" name="randomkey" value="1" <?php echo ($att->attendkey ? '': 'checked') ?> />
+              <?php print_string('setrandomkey','block_autoattend');?>
+            </td>
+          </tr>
+
+          <?php if ($att->method=='A' or $att->method=='S') { ?>
+          <tr>
+            <td align="right">
+              <?php $allowip_help = $OUTPUT->help_icon('sessionallowip','block_autoattend');?>
+              <div style="font-weight:bold;"><?php echo $allowip_help.'&nbsp;'.get_string('sessionallowip','block_autoattend');?>:</div>
+            </td>
+            <td>
+              <input type="text" name="allowip" size="60" maxlength="250" value="<?php echo $att->allowip;?>" />
+            </td>
+          </tr>
+          <?php } else { ?>
+            <input type="hidden" name="allowip" size="60" maxlength="250" value="<?php echo $att->allowip;?>" />
+          <?php } ?>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('denysameip','block_autoattend');?>:</div>
+            </td>
+            <td>
+              <input type="checkbox" name="denysameip" value="1" <?php echo ($att->denysameip=='0' ? '': 'checked') ?> />
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('description','block_autoattend');?>:</div>
+            </td>
+            <td>
+              <input type="text" name="desc" size="60" maxlength="100" value="<?php echo $att->description;?>" />
+            </td>
+          </tr>
+  
+          <?php if ($classes) { ?>
+          <tr>
+            <td align="right">
+              <div style="font-weight:bold;"><?php echo get_string('classname','block_autoattend');?>:</div>
+            </td>
+            <td>
+              <select name="class">
+                <?php if ($att->classid==0) $selected='selected="selected"'; else $selected=''; ?>
+                <option value="0" <?php echo $selected;?> ><?php print_string('allstudents','block_autoattend');?></option>
+                <?php foreach ($classes as $class) { ?>
+                  <?php if ($att->classid==$class->id) $selected='selected="selected"'; else $selected=''; ?>
+                  <option value="<?php echo $class->id;?>" <?php echo $selected;?> ><?php echo $class->name;?></option>
+                <?php } ?>
+              </select>
+            </td>
+          </tr>
+          <?php } ?>
+
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>
+              <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course"  value="<?php echo $courseid?>" />
+              <input type="hidden" name="attsid"  value="<?php echo $attsid;?>" />
+              <input type="hidden" name="action"  value="update" />
+              <input type="submit" name="submit"  value="<?php print_string("update",'block_autoattend');?>" />&nbsp;
+              <input type="reset"  name="submit"  value="<?php print_string("reset");?>" />&nbsp;
+              <input type="submit" name="submit"  value="<?php print_string("return",'block_autoattend');?>" />
+            </td>
+          </tr>
+
+          <tr>
+              <td colspan="2">&nbsp;</td>
+          </tr>
+        </form>
+
+      </table>
+    </td>
+  </tr>
+</table>

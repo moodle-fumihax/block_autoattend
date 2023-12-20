@@ -1,0 +1,73 @@
+<style type="text/css">
+  <?php include("html.css")?>
+</style>
+
+<table border="0" align="center">
+  <tr>
+    <td align="center">
+<!--
+      <table border="0" style="margin: -20px 0px -20px 0px;">
+-->
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr><td>
+          <?php echo $OUTPUT->heading(get_string('attendreport','block_autoattend').' :: '.$course->fullname); ?>
+        </td></tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr>
+          <td>
+            <form name="download" action="<?php echo $wwwMyURL;?>" method="get">
+              <input type="hidden" name="sesskey"  value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course"   value="<?php echo $course->id;?>" />
+              <input type="hidden" name="class"    value="<?php echo $classid;?>" />
+              <input type="hidden" name="viewmode" value="<?php echo $viewmode;?>" />
+              <input type="hidden" name="current"  value="<?php echo $current;?>" />
+              <input type="hidden" name="sort"     value="<?php echo $sort;?>" />
+              <input type="hidden" name="action"   value="excel">
+              <input type="submit" value="<?php print_string('downloadexcel','block_autoattend')?>" />
+            </form>
+          </td>
+          <td>&nbsp;</td>
+          <td>
+            <form name="download" action="<?php echo $wwwMyURL;?>" method="get">
+              <input type="hidden" name="sesskey"  value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course"   value="<?php echo $course->id;?>" />
+              <input type="hidden" name="class"    value="<?php echo $classid;?>" />
+              <input type="hidden" name="viewmode" value="<?php echo $viewmode;?>" />
+              <input type="hidden" name="current"  value="<?php echo $current;?>" />
+              <input type="hidden" name="sort"     value="<?php echo $sort;?>" />
+              <input type="hidden" name="action"   value="text">
+              <input type="submit" value="<?php print_string('downloadtext','block_autoattend')?>" />
+            </form>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr align="center">
+    <td>
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr>
+          <td><?php echo $OUTPUT->single_select($viewurl, 'viewmode', $options, $viewmode);?></td>
+          <td>&nbsp;</td>
+          <td><?php autoattend_select_user_class($classid, $classes, $classurl, $url_options_class);?></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <?php if ($date_title) { ?>
+  <tr>
+    <td align="center"><?php echo $date_title;?></td>
+  </tr>
+  <?php } ?>
+</table>
+
+<?php report_show_table($course, $students, $course_sess, $classes, $settings, $url_options_table, $name_pattern, $order);?>
+

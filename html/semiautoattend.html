@@ -1,0 +1,99 @@
+<style type="text/css">
+  <?php include("html.css")?>
+</style>
+
+<table  border="0" align="center">
+  <tr>
+    <td align="center">
+<!--
+      <table border="0" style="margin: -20px 0px -10px 0px;">
+-->
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr><td>
+          <?php echo $OUTPUT->heading(get_string('submitattend','block_autoattend').' :: '.$course->fullname);?>
+       </td></tr>
+     </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <?php if ($iperrmesg) { ?>
+        <h2><div align="center"><div style="font-weight:bold;"><?php print_string('iperroccur','block_autoattend');?></div></div></h2>
+      <?php } else if ($keyerrmesg) { ?>
+        <h2><div align="center"><div style="font-weight:bold;"><?php print_string('keyerroccur','block_autoattend');?></div></div></h2>
+      <?php } else { ?>
+        <h2><div align="center"><div style="font-weight:bold;"><?php print_string('semiautoconfirm','block_autoattend');?></div></div></h2>
+     <?php } ?>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <form name="semiautoattend" action="<?php echo $wwwMyURL;?>" method="post">
+        <table border="0" align="center">
+          <tr>
+            <td>
+              <table border="0" align="center">
+                <tr>
+                  <td align="center">
+                    <div style="font-weight:bold;"><h3>
+                    <?php
+                      $summer_mark = '-';
+                      $summertime = autoattend_get_summertime($att->id, $use_summertime)*ONE_HOUR_TIME;
+                      if ($summertime>0) $summer_mark = '*';
+                    ?>
+                    <?php echo $summer_mark;?>
+                    <?php echo strftime(get_string('strftimedmyw',    'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);?>&nbsp;
+                    <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);?>&nbsp;-
+                    <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $att->endtime   + $summertime + $TIME_OFFSET);?>&nbsp;
+                    <?php echo autoattend_get_session_classname($att->classid);?>&nbsp;
+                    <?php print_string('description','block_autoattend');?>:&nbsp;
+                    <?php echo ($att->description ? $att->description : get_string('nodescription', 'block_autoattend'));?>
+                    </h3></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td align="center"><h3>
+                    <?php if ($iperrmesg) { ?>
+                      <?php echo $iperrmesg;?><br /><br /><?php print_string('iperrattention', 'block_autoattend');?>
+                    <?php } else if ($keyerrmesg) { ?>
+                      <?php echo $keyerrmesg;?><br /><br /><?php print_string('keyerrattention', 'block_autoattend');?><br /><br />
+                      <input type="text"   name="checkkey" value="" />
+                    <?php } else if ($attendkey) { ?>
+                      <?php print_string('needkeyword', 'block_autoattend');?><br /><br />
+                      <input type="text" name="checkkey" value="" />
+                    <?php } ?>
+                  </h3></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td class="generalboxcontent">
+              <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+              <input type="hidden" name="attsid"  value="<?php echo $attsid;?>" />
+              <input type="hidden" name="course"  value="<?php echo $course->id;?>" />  
+              <input type="hidden" name="class"   value="<?php echo $classid;?>" />
+              <table border="0" align="center">
+                <tr>
+                  <?php if (empty($iperrmesg)) { ?>
+                    <td>
+                      <input type="submit" name="submit"  value="<?php print_string('submitok','block_autoattend')?>" />
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  <?php } ?>
+                  <td>
+                    <input type="submit" name="cancel" value="<?php print_string('cancel');?>" />
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
+

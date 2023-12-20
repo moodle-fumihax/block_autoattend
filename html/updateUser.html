@@ -1,0 +1,99 @@
+<style type="text/css">
+  <?php include("html.css")?>
+</style>
+
+<script type="text/javascript">
+function select_all_radio_in(elTagName, elClass, start, end) 
+{
+    var inputs = document.getElementsByTagName('INPUT');
+
+    var radio = [];
+    var lrd = 0;
+    var len = inputs.length;
+
+    for (var i=0; i<len; i++) {
+        var pnode = inputs[i].parentNode;
+        if (pnode.nodeName.toUpperCase()==elTagName.toUpperCase()) {
+            if (pnode.className.toUpperCase()==elClass.toUpperCase()) {
+                radio[lrd++] = inputs[i];
+            }
+        }
+    }
+
+    start = Math.min(lrd, start);
+    end   = Math.min(lrd, end);
+    for(var i=start; i<end; i++) {
+        if(radio[i].type=='radio') {
+            radio[i].checked = 'checked';
+        }
+    }
+}
+</script>
+
+
+<table align="center" class="generalbox">
+  <tr>
+    <td align="center">
+<!--
+      <table border="0" style="margin: -20px 0px -20px 0px;">
+-->
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr><td>
+          <?php echo $OUTPUT->heading(get_string('updateuserattend','block_autoattend').' :: '.$course->fullname); ?>
+        </td></tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <table border="0" cellpadding="0" cellspacing="0" style="border-color:#eee;">
+        <tr>
+          <td valign="bottom">
+            <?php echo $OUTPUT->user_picture($user, $pic_opts);?>&nbsp;
+          </td>
+          <td valign="bottom">
+            <a href="index.php?course=<?php echo $course->id;?>&amp;student=<?php echo $user->id;?>"><?php echo $username.$disp_id;?>&nbsp;</a>
+          </td>
+          <td valign="bottom">
+            <?php print_string('classname','block_autoattend');?>:&nbsp;<div style="font-weight:bold;"><?php echo $classname;?>&nbsp;</div>
+          </td>
+          <td valign="bottom">
+            <?php print_string('sessionscompleted','block_autoattend');?>:&nbsp;<div style="font-weight:bold;"><?php echo $complete;?>&nbsp;</div>
+          </td>
+          <td valign="bottom">
+            <?php echo $useratt;?>
+          </td>
+          <td valign="bottom">
+            <?php print_string('attendnpercent','block_autoattend');?>:&nbsp;<div style="font-weight:bold;"><?php echo $npercent;?>&nbsp;</div>
+          </td>
+          <td valign="bottom">
+            <?php print_string('attendgrade','block_autoattend');?>:&nbsp;<div style="font-weight:bold;"><?php echo $grade;?></div>&nbsp;/&nbsp;<?php echo $pgrade;?>&nbsp;
+          </td>
+          <td valign="bottom">
+            <?php print_string('attendgpercent','block_autoattend');?>:&nbsp;<div style="font-weight:bold;"><?php echo $gpercent;?>&nbsp;</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <form name="takeautoattend" method="post" action="attendaction.php">
+    <tr>
+      <td align="center">
+		<?php updateUser_show_table($attitems, $settings, $classid, $course->id);?>
+        <input type="hidden" name="course"   value="<?php echo $course->id;?>" />
+        <input type="hidden" name="userid"   value="<?php echo $user->id;?>" />
+        <input type="hidden" name="sesskey"  value="<?php echo sesskey();?>" />
+        <input type="hidden" name="fromform" value="updateUser" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <input type="submit" name="esv" value="<?php print_string('ok');?>" />&nbsp;&nbsp;
+        <input type="reset"  name="esv" value="<?php print_string('reset');?>" />&nbsp;&nbsp;
+        <input type="submit" name="esv" value="<?php print_string('return','block_autoattend');?>" />
+      </td>
+    </tr>
+  </form>
+</table>

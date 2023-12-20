@@ -1,0 +1,57 @@
+<style type="text/css">
+  <?php include("html.css")?>
+</style>
+
+<table align="center" class="generalbox">
+  <tr>
+    <td align="center">
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr><td>
+          <?php echo $OUTPUT->heading(get_string('maintenance','block_autoattend').' :: '.$course->fullname); ?>
+        </td></tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="generalboxcontent" align="center">  
+      <table border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center">
+            <?php 
+              if ($has_module) { 
+                if ($has_module_instance) { 
+                  echo '<a href='.$modeditURL.' target="_blank" >'.get_string('settingpairmod','block_autoattend').'</a>';
+                }
+                else {
+                  echo get_string('instancepairmod','block_autoattend'); 
+                }
+              }
+              else {
+                echo '<a href=https://moodle.org/plugins/mod_autoattendmod target="_blank">';
+                echo get_string('installpairmod','block_autoattend'); 
+                echo '</a>';
+              }
+            ?>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <?php echo '<a href='.$wwwBlock.'/cleanupDB.php?course='.$courseid.' target="_blank" ><div style="font-weight:bold;">'.get_string('cleanupdb','block_autoattend').'</div></a>';?>
+            <?php echo $OUTPUT->help_icon('cleanupdb','block_autoattend');?>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <?php echo '<a href='.$wwwBlock.'/deleteDB.php?course='.$courseid.' target="_blank" ><div style="font-weight:bold;">'.get_string('deletedb','block_autoattend').'</div></a>';?>
+            <?php echo $OUTPUT->help_icon('deletedb','block_autoattend');?>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <?php echo "Now thinking....";?> 
+          </td>
+      </table>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,83 @@
+<style type="text/css">
+  <?php include("html.css")?>
+</style>
+
+<table border="0" align="center">
+  <tr>
+    <td align="center">
+<!--
+      <table  border="0" align="center" style="margin: -20px 0px -30px 0px;">
+-->
+      <table  border="0" align="center" style="margin: 0px 0px 0px 0px;">
+        <tr><td>
+          <?php echo $OUTPUT->heading(get_string('returntoN','block_autoattend').' :: '.$course->fullname);?>
+        </td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<table  border="0" align="center">
+  <tr>
+    <td>
+      <h2><div align="center"><div style="font-weight:bold;"><?php print_string('returntoNconfirm','block_autoattend');?></div></div></h2>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h3><div align="center"><div style="font-weight:bold;"><?php print_string('returntoNdesc','block_autoattend');?></div></div></h3>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="generalboxcontent" style="border: thin solid #000;">
+      <table border="0" align="center">
+        <tr>
+          <td>
+            <div style="font-weight:bold;">
+              <?php
+                $summer_mark = '-';
+                $summertime = autoattend_get_summertime($att->id, $use_summertime)*ONE_HOUR_TIME;
+                if ($summertime>0) $summer_mark = '*';
+              ?>
+              <?php echo $summer_mark;?>
+              <?php echo strftime(get_string('strftimedmyw',    'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);?>&nbsp;
+              <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);?>&nbsp;-
+              <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $att->endtime   + $summertime + $TIME_OFFSET);?>&nbsp;
+              <?php echo autoattend_get_session_classname($att->classid);?>&nbsp;
+              <?php print_string('description','block_autoattend');?>:&nbsp;
+              <?php echo ($att->description ? $att->description : get_string('nodescription', 'block_autoattend'));?>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="generalboxcontent">
+      <form name="delete" action="<?php echo $wwwMyURL;?>" method="post">
+        <table border="0" align="center">
+          <tr>
+            <td>
+              <input type="hidden" name="confirm" value="1" />
+              <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course"  value="<?php echo $course->id;?>" />  
+              <input type="hidden" name="class"   value="<?php echo $classid;?>" />
+              <input type="hidden" name="attsid"  value="<?php echo $attsid;?>" />  
+              <input type="submit" name="submit"  value="<?php print_string('toNok','block_autoattend')?>" />
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>
+              <input type="submit" name="submit" value="<?php print_string('cancel');?>" />
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>

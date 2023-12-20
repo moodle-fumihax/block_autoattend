@@ -1,0 +1,158 @@
+<style type="text/css">
+  <?php include("html.css")?>
+</style>
+
+<script language="JavaScript">
+  function select_all() {
+    var ls = document.forms['delete'].elements;
+    for (var i=0; i<ls.length; i++) {
+      if (ls[i].type=="checkbox") {
+        ls[i].checked = true;
+      }
+    }
+  }  
+</script>
+
+<script language="JavaScript">
+function clear_all() {
+  var ls = document.forms['delete'].elements;
+  for (var i=0; i<ls.length; i++) {
+    if (ls[i].type=="checkbox") {
+      ls[i].checked = false;
+    }
+  }
+}
+</script>
+
+
+<div align="center" style="overflow-x: auto;">
+
+<table align="center" border="0" class="generalbox" width="950px">
+  <tr>
+    <td colspan="2" align="center">
+<!--
+      <table border="0" style="margin: -20px 0px -35px 0px;">
+-->
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr><td>
+          <?php echo $OUTPUT->heading(get_string('sessiontable','block_autoattend').' :: '.$course->fullname); ?>
+        </td></tr>
+      </table>
+   </td>
+  </tr>
+
+  <?php if ($classes) {?>
+  <tr>
+    <td colspan="2" align="center">
+<!--
+      <table border="0" style="margin: 0px 0px -20px 0px;">
+-->
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr><td>
+          <?php autoattend_select_session_class($classid, $classes, $wwwMyURL, $url_options); ?>
+        </td></tr>
+      </table>
+    </td>
+  </tr>
+  <?php }?>
+
+  <tr>
+    <td class="generalboxcontent" align="center">
+      <table border="0" width="100%" align="justify">
+        <tr>
+          <td align="left">
+            <form name="flush" action="<?php echo $wwwBlock;?>/refreshSessions.php" method="post">
+              <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course"  value="<?php echo $course->id;?>" />
+              <input type="hidden" name="class"   value="<?php echo $classid;?>" />
+              <input type="submit" value="<?php print_string('refreshdata','block_autoattend')?>" />&nbsp;&nbsp;
+              <input type="checkbox" name="grades" value="yes" />&nbsp;<?php print_string('recalcgrades','block_autoattend')?>
+            </form>
+          </td>
+          <td align="right">
+            <?php 
+              //echo $OUTPUT->help_icon('abouthelp',get_string('about','block_autoattend'), 'block_autoattend', true, true, '', true);
+            ?>
+          </td>
+        </tr>
+      </table>
+
+      <form name="delete" action="<?php echo $wwwBlock;?>/delete.php" method="post">
+        <?php autoattend_sessions_show_table($sessions, $classes, $course->id, $classid);?>
+
+        <table  border="0" align="right">
+        <?php if ($isteacher) { ?>
+          <tr>
+            <td>
+              <a href="javascript:select_all();">
+                [<?php print_string('selectall', 'block_autoattend');?>]
+              </a>&nbsp;
+            </td>
+            <td>
+              <a href="javascript:clear_all();">
+                [<?php print_string('clearall', 'block_autoattend');?>]
+              </a>&nbsp;
+            </td>
+            <td>
+              <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course"  value="<?php echo $course->id;?>" />
+              <input type="hidden" name="class"   value="<?php echo $classid;?>" />
+              <input type="submit" value="<?php print_string('deleteselect','block_autoattend')?>" />
+            </td>
+          </tr>
+        <?php } ?>
+        </table>
+
+      </form>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="generalboxcontent">
+      <table width="50%"  border="0" align="center">
+        <tr>        
+          <td width="50%" align="center" height="50">
+            <form name="download" action="<?php echo $wwwMyURL;?>" method="get">
+              <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course"  value="<?php echo $course->id;?>" />
+              <input type="hidden" name="class"   value="<?php echo $classid;?>" />
+              <input type="hidden" name="action"  value="excel">
+              <input type="submit" value="<?php print_string('downloadexcel','block_autoattend')?>" />
+            </form>              
+          </td>
+          <td>&nbsp;&nbsp;</td>
+          <td width="50%" align="center">
+            <form name="download" action="<?php echo $wwwMyURL;?>" method="get">
+              <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />
+              <input type="hidden" name="course"  value="<?php echo $course->id;?>" />
+              <input type="hidden" name="class"   value="<?php echo $classid;?>" />
+              <input type="hidden" name="action"  value="text">
+              <input type="submit" value="<?php print_string('downloadtext','block_autoattend')?>" />
+            </form>        
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td> </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <?php if (autoattend_disp_feedback($course->id)) { ?>
+        <a href="https://el.mml.tuis.ac.jp/moodle/mod/feedback/view.php?id=528" target="_blank">
+          <div style="font-weight:bold;"><?php print_string("pleasefeedback", "block_autoattend");?></div>
+        </a>
+        <br /><?php print_string("removefeedback", "block_autoattend");?>
+        <br /><br />
+      <?php } ?>
+      <?php $nowtime_help = $OUTPUT->help_icon('nowtime','block_autoattend');?>
+      <?php echo $nowtime_help.' '.strftime(get_string('strftimefull', 'block_autoattend'), time()+$TIME_OFFSET); ?>
+      &nbsp;
+      <?php if ($use_summertime) echo '[no summer time display]'; ?>
+      &nbsp;
+      <a href="<?php echo get_string('wiki_url','block_autoattend');?>" target="_blank"><i>Autoattend <?php echo $plugin->release;?></i></a>
+    </td>
+  </tr>
+</table>
+
+</div>
