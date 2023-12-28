@@ -138,10 +138,11 @@ $string['needkeyword'] = 'この出席を送信するにはキーワードが必
 $string['nevererror'] = '起こりえないエラー．恐らくはプログラムのバグです．';
 $string['noattforuser'] = 'ユーザが存在しません';
 $string['nodescription'] = 'なし';
-$string['noofdaysabsent'] = '欠席数';
-$string['noofdaysexcused'] = '早退数';
-$string['noofdayslate'] = '遅刻数';
-$string['noofdayspresent'] = '出席数';
+$string['numofdaysabsent'] = '欠席数';
+$string['numofdaysexcused'] = '早退数';
+$string['numofdayslate'] = '遅刻数';
+$string['numofdayspresent'] = '出席数';
+$string['numofattend'] = '出席者数';
 $string['nosessiondayselected'] = '授業日が選択されませんでした';
 $string['nosessionexists'] = 'このコースにはまだ授業が登録されていません<br />
 最初に「登録」タブで授業を登録してください';

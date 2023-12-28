@@ -8,9 +8,12 @@
 //                           2016/01/04
 //                           2019/08/20
 //                           2023/08/04   add summary['pgrade']
+//                           2023/12/28
 
 /*
  function autoattend_to_localcode($message, $tocode) 
+
+ function autoattend_get_current_session($courseid, $classid, $defer=600)
  function autoattend_get_sessions($courseid, $classid, $inall=false)
  function autoattend_count_sessions($courseid, $classid)
  function autoattend_get_attend_students($courseid, $classid=0, $context=null, $sort='', $order='')
@@ -123,6 +126,24 @@ function autoattend_to_localcode($message, $tocode)
 //
 // Sessions
 //
+
+//
+// 現在または直近のセッションの情報を得る．
+// @params defer 猶予時間
+//
+function autoattend_get_current_session($courseid, $classid, $defer=600) { 
+    global $DB;
+
+    $now_time = time();
+    $start_time = $now_time + $defer;
+
+    $select = "courseid='$courseid' and classid='$classid' and starttime<='$start_time' and endtime>'$now_time'";
+    $session = $DB->get_record_select('autoattend_sessions', $select);
+
+    if (!$session) return null;
+    return $session;
+}
+
 
 //
 // コースの講義情報を得る
