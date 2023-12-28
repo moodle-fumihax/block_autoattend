@@ -1,4 +1,4 @@
-﻿<?php	// attendaction.php
+<?php	// attendaction.php
 
 // Midified by Fumi.Iseki 2007/03/21
 //                        2013/04/12

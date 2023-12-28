@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -13,7 +13,7 @@ if (property_exists($CFG, 'use_timeoffset')) {
     if ($CFG->use_timeoffset) {
         //
         $ver = jbxl_get_moodle_version();
-        if ($ver>=2.7) {
+        if (floatval($ver)>=2.7) {
             if (is_numeric($CFG->timezone)) {
                 $TIME_OFFSET = $CFG->timezone*ONE_HOUR_TIME;
             }
@@ -39,3 +39,4 @@ if (property_exists($CFG, 'use_timeoffset')) {
 
 //
 $OMITTED_DAYS = array('0'=>'Sun','1'=>'Mon','2'=>'Tue','3'=>'Wed','4'=>'Thu','5'=>'Fri','6'=>'Sat');
+

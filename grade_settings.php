@@ -1,4 +1,4 @@
-﻿<?php // $Id: grade_settings.php, 2005/09/21  Author: Ashok kumar Pola
+<?php // $Id: grade_settings.php, 2005/09/21  Author: Ashok kumar Pola
 
 // Modified by Fumi.Iseki     2007/03/23
 //                            2012/04/20

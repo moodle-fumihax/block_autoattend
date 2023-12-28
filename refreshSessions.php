@@ -1,4 +1,4 @@
-﻿<?php // $Id: refreshSessions.php, v1.0 2007/03/27 Fumi.Iseki $
+<?php // $Id: refreshSessions.php, v1.0 2007/03/27 Fumi.Iseki $
 
 
 require_once('../../config.php');	

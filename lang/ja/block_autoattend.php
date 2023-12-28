@@ -1,4 +1,4 @@
-﻿<?php // $Id$ 
+<?php // $Id$ 
       // block_autoattend.php - created with Moodle 1.7.1+ (2006101010)
 
 $string['pluginname'] = '自動出欠ブロック';

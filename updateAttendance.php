@@ -1,4 +1,4 @@
-﻿<?php // $Id: updateAttendance.php,v 1.10 2006/06/13 01:23:46 dlnsk Exp $
+<?php // $Id: updateAttendance.php,v 1.10 2006/06/13 01:23:46 dlnsk Exp $
 
 // Modified by Fumi.Iseki     2007/03/28
 //                            2012/04/20

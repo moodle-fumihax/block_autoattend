@@ -1,4 +1,4 @@
-﻿<?php // $Id: delete.php,v 1.3 2006/02/08 18:39:15 dlnsk Exp $
+<?php // $Id: delete.php,v 1.3 2006/02/08 18:39:15 dlnsk Exp $
 
 // Modified by Fumi.Iseki 	2007/03/23
 // 							2013/04/15

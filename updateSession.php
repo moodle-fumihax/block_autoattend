@@ -1,4 +1,4 @@
-﻿<?php // $Id: updateSession.php,v 1.3 2006/02/02 09:28:06 dlnsk Exp $
+<?php // $Id: updateSession.php,v 1.3 2006/02/02 09:28:06 dlnsk Exp $
 
 // Modified by Fumi.Iseki   2007/03/19
 //                          2013/04/05

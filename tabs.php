@@ -1,4 +1,4 @@
-﻿<?php  // $Id: tabs.php,v 1.3 2006/02/22 12:10:14 dlnsk Exp $
+<?php  // $Id: tabs.php,v 1.3 2006/02/22 12:10:14 dlnsk Exp $
 
 //
 // Modified by Fumi.Iseki    2012/04/20

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace block_autoattend\event;
 

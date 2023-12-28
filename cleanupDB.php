@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
 
 //
 // clean up autoattend_sessions and autoattend_students

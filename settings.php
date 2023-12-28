@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $courseid = optional_param('course', '0', PARAM_INT);
 $course = $DB->get_record('course', array('id'=>$courseid));

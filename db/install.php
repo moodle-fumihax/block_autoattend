@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 function xmldb_block_autoattend_install() 
 {

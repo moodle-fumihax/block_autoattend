@@ -1,4 +1,4 @@
-﻿<?php // $Id: locallib.php,v 1.7 2006/02/25 18:07:32 dlnsk Exp $
+<?php // $Id: locallib.php,v 1.7 2006/02/25 18:07:32 dlnsk Exp $
 
 // Modified by Fumi.Iseki    2007/03/19
 //                           2012/04/20

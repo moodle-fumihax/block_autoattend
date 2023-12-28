@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 //
 // If you have not installed the attendance module, it is necessary to put paste the following link (this file) as an attendee link.

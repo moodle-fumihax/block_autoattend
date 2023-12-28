@@ -1,4 +1,4 @@
-﻿<?php // $Id: block_attendance.php,v 1.2 2006/10/27 09:40:09 dlnsk Exp $ 
+<?php // $Id: block_attendance.php,v 1.2 2006/10/27 09:40:09 dlnsk Exp $ 
       // block_attendance.php - created with Moodle 1.5.3+ (2005060230)
 
 $string['pluginname'] = 'Auto Attendance Block';

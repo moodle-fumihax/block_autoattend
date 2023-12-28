@@ -1,4 +1,4 @@
-﻿<?php // $Id: maintenance.php, 
+<?php // $Id: maintenance.php, 
 
 // Modified by Fumi.Iseki     2019/08/18
 

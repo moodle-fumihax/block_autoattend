@@ -1,4 +1,4 @@
-﻿<?php // $Id: returntoN.php,v 1.0 2007/03/27 Fumi.Iseki $
+<?php // $Id: returntoN.php,v 1.0 2007/03/27 Fumi.Iseki $
 
 //
 // 未了状態に戻る

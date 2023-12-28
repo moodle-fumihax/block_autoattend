@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
 // $Id: updateUser.php,v 2.0 2012/04/20 Fumi.Iseki $
 // Modified from updateUser.php at attendance block
 //

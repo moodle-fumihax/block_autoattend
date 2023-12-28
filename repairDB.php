@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
 
 //
 // delete duplicate records from autoattend_students

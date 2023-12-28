@@ -1,4 +1,4 @@
-﻿<?php // $Id: report.php,v 1.11 2006/06/13 01:23:45 dlnsk Exp $
+<?php // $Id: report.php,v 1.11 2006/06/13 01:23:45 dlnsk Exp $
 
 // Modified by Fumi.Iseki 2007/03/27
 //                        2012/04/20

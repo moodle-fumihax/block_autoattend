@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
 //
 // Automatic Attendance Block 
 //

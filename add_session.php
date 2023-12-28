@@ -1,4 +1,4 @@
-﻿<?php // $Id: add.php,v 1.7 2006/02/25 18:07:32 dlnsk Exp $
+<?php // $Id: add.php,v 1.7 2006/02/25 18:07:32 dlnsk Exp $
 
 // Modified by Fumi.Iseki to add_session.php  2014/05/11
 
