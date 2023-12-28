@@ -5,7 +5,7 @@
  In addition to the original manual mode, automatic attendance mode (from the access log of Moodle) and semi-automatic 
 attendance mode (user clicks a link) are also possible.
 
- ** I strongly recommend a combination of autoattendance block (autoattend) and autoattendance module (autoattendmod).**
+ **I strongly recommend a combination of autoattendance block (autoattend) and autoattendance module (autoattendmod).**
 
 ## Functions
  This is the block for taking attendance. 
@@ -36,40 +36,32 @@ attendance mode (user clicks a link) are also possible.
   Teachers will record by taking the roll call manually. It is flexibil, but cumbersome.
   - Please use in the classroom do not use the computer or use in the correction after taking the automatic and semi-automatic mode
 
-注意：
-　Version 2.x は 1.x のデータベースと互換性がありません．Version 1.x からアップ
-グレードは可能ですが，1.xでの出欠データは 2.xでは正しく表示されません．
+----------
+## In Japanese
 
-
-概要：
+### 概要
 　このブロックとモジュールは Dmitry Pupinin 氏の Attendance block/module を改造
 したものです．元々の手動で出席をとるモードに加えて，自動・半自動モードが追加
 されています．また手動モードとも組み合わせて，かなり柔軟に出席を取る事が可能です．
 
-
-機能：
+### 機能
 　出席を取るためのブロックとモジュールです．出席の取り方は，手動，自動，半自動の
 3種類があります．それぞれ利点と欠点がありますので，用途・環境によって使い分けて
 ください．
 
-　自動：ユーザがコースにアクセスした場合に自動で出席が取られます．
-		cronなどによりアクセスログをみて出席の確認を取るため，最新の情報を得たい
-　　　　場合などにはタイムラグが生じます．ただし，手動でリフレッシュボタンを
-　　　　クリックすれば最新の情報を得ることも可能です．
-　　　　IPアドレスによる制限を追加できます．
-　　　　ログさえ残っていれば，いつでも出席を取り直せます．
+#### 自動：ユーザがコースにアクセスした場合に自動で出席が取られます．
+　cronなどによりアクセスログをみて出席の確認を取るため，最新の情報を得たい
+場合などにはタイムラグが生じます．ただし，手動でリフレッシュボタンをクリックすれば最新の情報を得ることも可能です．IPアドレスによる制限を追加できます．ログさえ残っていれば，いつでも出席を取り直せます．
 
-　半自動：ユーザが出欠モジュールをクリックすることにより出欠を取ります．
-        学生が意識して出欠リンクをクリックする必要があります．
-　　　　リアルタイムで出席を確認できます．
-　　　　IPアドレス，キーワードによる制限を追加できます．
-　　　　同一のマシンからの出席を禁止することもできます．
+#### 半自動：ユーザが出欠モジュールをクリックすることにより出欠を取ります．
+　学生が意識して出欠リンクをクリックする必要があります．
+リアルタイムで出席を確認できます．IPアドレス，キーワードによる制限を追加できます．同一のマシンからの出席を禁止することもできます．
 
-　手動：教師が手動で点呼を取って記録します．融通が利きますが面倒です．コンピュータ
-　　　　を使わない授業や自動・半自動で取った後の修正で使用すると便利でしょう．
+#### 手動：教師が手動で点呼を取って記録します．
+　融通が利きますが面倒です．コンピュータを使わない授業や自動・半自動で取った後の修正で使用すると便利でしょう．
 
-
+### モジュールとの併用
 　ブロックのみでも作動しますが，モジュールを追加すると，以下の機能が追加されます．
-　　１．出席点が評定に加算される．
-　　２．自動モードの場合に cronで最新の状態に更新できる．
-　　３．半自動モードで出席エントリのリンクとして使用できる
++ 出席点が評定に加算される．
++ 自動モードの場合に cronで最新の状態に更新できる．
++ 半自動モードで出席エントリのリンクとして使用できる
