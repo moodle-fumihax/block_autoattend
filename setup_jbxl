@@ -6,5 +6,5 @@ else
   git clone https://github.com/JunkBox-Library/jbxl-php.git jbxl
 fi
 
-OWN=`ls -ld .|awk -F" " '{print $3"."$4}'`
-chown -R $OWN jbxl
+OWN=`ls -ld .. |awk -F" " '{print $3"."$4}'`
+chown -R $OWN . jbxl
