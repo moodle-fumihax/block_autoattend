@@ -7,6 +7,9 @@ attendance mode (user clicks a link) are also possible.
 
  **I strongly recommend a combination of autoattendance block (autoattend) and autoattendance module (autoattendmod).**
 
+## Moodle Plugins
+- https://moodle.org/plugins/block_autoattend
+
 ## Functions
  This is the block for taking attendance. 
  The taking of attendance, there are three modes of manual, automatic and semi-automatic.
