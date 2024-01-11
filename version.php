@@ -8,9 +8,10 @@ $plugin->component = 'block_autoattend';  // Full name of the plugin (used for d
 $plugin->cron      = 0;
 $plugin->maturity  = MATURITY_STABLE;
 
-$plugin->release   = '2.7.0';
+$plugin->release   = '2.7.2';
 
-$plugin->version   = 2023122801;    // v2.7.0 add info to block
+$plugin->version   = 2024011102;    // v2.7.2 contorol show attendance info. in the block
+//$plugin->version = 2023122801;    // v2.7.0 add info to block
 //$plugin->version = 2023112800;    // v2.6.5 strong to div
 //$plugin->version = 2023103100;    // v2.6.4 correct rate of attendance
 //$plugin->version = 2023032300;    // v2.6.3 add local host name

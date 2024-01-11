@@ -80,16 +80,19 @@ class block_autoattend extends block_base
                                                 get_string('repairdb','block_autoattend').'</a><br />';
                 }
                 //
-                // show current session info
-                $session = autoattend_get_current_session($courseid, $classid, 600);
-                if ($session) {
-                    $this->content->text .= '<hr />';
-                    if ($session->method == 'S') {
-                        $this->content->text .= get_string('keyword','block_autoattend').':&nbsp;&nbsp;'.'<strong>'.$session->attendkey.'</strong><br />';
+                // show current attendace info
+                if (autoattend_get_disp_info($course->id)) {
+                    $pdt = autoattend_get_predisp_time($course->id) * 60;
+                    $session = autoattend_get_current_session($courseid, $classid, $pdt);
+                    if ($session) {
+                        $this->content->text .= '<hr />';
+                        if ($session->method == 'S') {
+                            $this->content->text .= get_string('keyword','block_autoattend').':&nbsp;&nbsp;'.'<strong>'.$session->attendkey.'</strong><br />';
+                        }
+                        $ttlcount = autoattend_count_attend_students($course->id, 0, $context);
+                        $attcount = autoattend_count_class_students($session, $courseid, $context, "status<>'Y' AND status<>'X'");
+                        $this->content->text .= get_string('numofattend','block_autoattend').':&nbsp;&nbsp;<strong>'.$attcount.'</strong> / '.$ttlcount.'<br />';
                     }
-                    $ttlcount = autoattend_count_class_students($session, $courseid, $context);
-                    $attcount = autoattend_count_class_students($session, $courseid, $context, "status<>'Y' AND status<>'X'");
-                    $this->content->text .= get_string('numofattend','block_autoattend').':&nbsp;&nbsp;<strong>'.$attcount.'</strong> / '.$ttlcount.'<br />';
                 }
             }
         }    

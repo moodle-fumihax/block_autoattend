@@ -71,6 +71,9 @@
  function autoattend_update_grades($courseid) 
 
  function autoattend_get_namepattern($courseid)
+ function autoattend_get_disp_info($courseid)
+ function autoattend_get_predisp_time($courseid)
+
  function autoattend_disp_feedback($courseid)
  function autoattend_is_email_enable($courseid)
  function autoattend_is_email_allreports($courseid)
@@ -2285,6 +2288,36 @@ function  autoattend_get_namepattern($courseid)
         $ret = autoattendmod_get_namepattern($courseid);
     }
     return $ret;
+}
+
+
+function  autoattend_get_disp_info($courseid)
+{
+    global $CFG;
+
+    $ret = 1;
+    if ($courseid==0) return $ret;
+
+    if  (file_exists($CFG->dirroot.'/mod/autoattendmod/locallib.php')) {
+        require_once($CFG->dirroot.'/mod/autoattendmod/locallib.php');
+        $ret = autoattendmod_get_disp_info($courseid);
+    }
+    return $ret;
+}
+
+
+function  autoattend_get_predisp_time($courseid)
+{
+    global $CFG;
+
+    $dtm = 100;    // default +5m    
+    if ($courseid==0) return $dtm;
+
+    if  (file_exists($CFG->dirroot.'/mod/autoattendmod/locallib.php')) {
+        require_once($CFG->dirroot.'/mod/autoattendmod/locallib.php');
+        $dtm = autoattendmod_get_predisp_time($courseid);
+    }
+    return $dtm;
 }
 
 
