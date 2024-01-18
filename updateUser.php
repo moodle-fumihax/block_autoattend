@@ -4,8 +4,7 @@
 //
 
 // Modified by Fumi.Iseki   2007/03/28
-//                            2013/04/12
-
+//                          2013/04/12
 
 require_once('../../config.php');    
 require_once($CFG->libdir.'/blocklib.php');
@@ -29,7 +28,6 @@ $PAGE->set_url('/blocks/autoattend/updateUser.php', $urlparams);
 $wwwBlock = $CFG->wwwroot.'/blocks/autoattend';
 $wwwMyURL = $wwwBlock.'/updateUser.php';
 
-
 $course = $DB->get_record('course', array('id'=>$courseid));
 if (!$course) {
     print_error('courseidwrong', 'block_autoattend');
@@ -48,7 +46,6 @@ if (!$user) {
     print_error('nosuchuser', 'block_autoattend');
 }
     
-
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -121,7 +118,6 @@ function updateUser_make_header(&$table, $settings, $start, $end)
     
     return;
 }
-
 
 
 function updateUser_show_table($attitems, $settings, $classid, $courseid)

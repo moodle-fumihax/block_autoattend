@@ -30,13 +30,9 @@ function select_all_radio_in(elTagName, elClass, start, end)
 }
 </script>
 
-
-<table align="center" class="generalbox">
+<table align="center" class="userinfobox">
   <tr>
     <td align="center">
-<!--
-      <table border="0" style="margin: -20px 0px -20px 0px;">
--->
       <table border="0" style="margin: 0px 0px 0px 0px;">
         <tr><td>
           <?php echo $OUTPUT->heading(get_string('updateuserattend','block_autoattend').' :: '.$course->fullname); ?>
@@ -46,7 +42,57 @@ function select_all_radio_in(elTagName, elClass, start, end)
   </tr>
 
   <tr>
-    <td align="center">
+    <td>
+      <table border="0" cellpadding="0" cellspacing="0" class="list">
+        <tr>
+          <td>
+            <?php 
+              $pic_options = array('size'=>60, 'link'=>true, 'alttext'=>true, 'courseid'=>$courseid, 'popup'=>true);
+              echo $OUTPUT->user_picture($user, $pic_options);
+            ?>
+          </td>
+          <td valign="bottom">
+            <font size="+1"><div style="font-weight:bold;"><?php echo $username.'&nbsp;&nbsp;'.$disp_id;?></div></font>
+          </td>
+        </tr>
+      </table>
+      <hr />
+
+      <table border="0" cellpadding="0" cellspacing="0" class="list">
+        <?php
+          if ($CFG->output_idnumber) {
+            autoattend_print_user_row('ID&nbsp;:&nbsp;', '<div style="font-weight:bold;">$user_idnum</div>');
+          }
+          autoattend_print_user_row(get_string('coursename','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$course->fullname.'</div>');
+          autoattend_print_user_row(get_string('classname', 'block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$classname.'</div>');
+          if ($classid>=0) {        // !出欠から除外
+            autoattend_print_user_row(get_string('sessionscompleted','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$complete.'</div>');
+            $absence = 0;
+            foreach($settings as $set) {
+                if ($set->status=='X') {
+                    $absence+= $summary[$set->status];
+                }
+                else if ($set->status!='Y' and $set->display) {  // X, Y 以外
+                    autoattend_print_user_row($settings[$set->status]->description.'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$summary[$set->status].'</div>');
+                }
+            }
+            autoattend_print_user_row($settings['X']->description.'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$absence.'</div>'); // X
+            autoattend_print_user_row(get_string('attendnpercent','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$npercent.'</div>');
+            //autoattend_print_user_row(get_string('attendgrade','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$grade.' / '.$maxgrade.'</div>');
+            autoattend_print_user_row(get_string('attendgrade','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$grade.' / '.$pgrade.'</div>');
+            autoattend_print_user_row(get_string('attendgpercent','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$gpercent.'</div>');
+          }
+        ?>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+<!--
+  <tr>
+    <td align="">
       <table border="0" cellpadding="0" cellspacing="0" style="border-color:#eee;">
         <tr>
           <td valign="bottom">
@@ -77,6 +123,7 @@ function select_all_radio_in(elTagName, elClass, start, end)
       </table>
     </td>
   </tr>
+-->
 
   <form name="takeautoattend" method="post" action="attendaction.php">
     <tr>
