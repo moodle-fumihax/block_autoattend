@@ -4,5 +4,5 @@
 
 rm -rf .git .gitignore jbxl/.git ibxl/.gitignore
 
-(cd ..; zip -r autoattend.zip block_autoattend/)
+(cd ..; zip -r block_autoattend.zip block_autoattend/)
 
