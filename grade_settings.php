@@ -64,7 +64,7 @@ function grade_settings_show_table($settings)
     $table->size [] = '60px';
     $table->wrap [] = 'nowrap';
 
-    $table->head [] = get_string('grade');
+    $table->head [] = get_string('attendgrade', 'block_autoattend');
     $table->align[] = 'center';
     $table->size [] = '60px';
     $table->wrap [] = 'nowrap';

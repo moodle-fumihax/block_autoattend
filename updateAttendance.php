@@ -113,11 +113,11 @@ function updateAttendance_make_header(&$table, $settings, $url_options, $start, 
     
     $table->head [] = '';
     $table->align[] = '';
-    $table->size [] = '20px';
+    $table->size [] = '60px';
         
     $table->head [] = $fullnamehead;    // name title
     $table->align[] = 'left';
-    $table->size [] = '140px';
+    $table->size [] = '160px';
     $table->wrap [2]= 'nowrap';
 
     if ($CFG->output_idnumber) {
