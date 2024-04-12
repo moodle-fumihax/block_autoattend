@@ -11,6 +11,7 @@ $plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = '2.7.3';
 
 $plugin->version   = 2024032301;    // v2.7.3 get_string('grade') -> get_string('attendgrade', 'block_autoattend');
+//$plugin->version = 2024021103;    // v2.7.2 repackege
 //$plugin->version = 2024011102;    // v2.7.2 contorol show attendance info. in the block
 //$plugin->version = 2023122801;    // v2.7.0 add info to block
 //$plugin->version = 2023112800;    // v2.6.5 strong to div
