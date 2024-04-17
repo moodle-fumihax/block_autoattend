@@ -39,6 +39,13 @@ attendance mode (user clicks a link) are also possible.
   Teachers will record by taking the roll call manually. It is flexibil, but cumbersome.
   - Please use in the classroom do not use the computer or use in the correction after taking the automatic and semi-automatic mode
 
+### Install from github
++ cd (Moodle Directory)/blocks
++ git clone https://github.com/moodle-fumihax/block_autoattend.git autoattend
++ cd autoattend
++ ./setup_jbxl
++ chown -R (WWW Effective UserName): autoattend
+
 ----------
 ## In Japanese
 
@@ -68,3 +75,11 @@ attendance mode (user clicks a link) are also possible.
 + 出席点が評定に加算される．
 + 自動モードの場合に cronで最新の状態に更新できる．
 + 半自動モードで出席エントリのリンクとして使用できる
+
+### github からのインストール
++ cd (Moodle Directory)/blocks
++ git clone https://github.com/moodle-fumihax/block_autoattend.git autoattend
++ cd autoattend
++ ./setup_jbxl
++ chown -R (WWW Effective UserName): autoattend
+  
