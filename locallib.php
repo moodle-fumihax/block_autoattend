@@ -462,8 +462,8 @@ function autoattend_choose_grouping($courseid, $url, $url_options)
         foreach ($groupings as $grouping) {
             $options [$grouping->id] = $grouping->name;
         }
-        $options[0] = get_string('allgrouping', 'block_autoattend');
     }
+    $options[0] = get_string('allgrouping', 'block_autoattend');
 
     return $options;
 }
