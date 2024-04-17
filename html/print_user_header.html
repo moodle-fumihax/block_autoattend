@@ -51,7 +51,7 @@
       <table border="0" cellpadding="0" cellspacing="0" class="list">
         <?php 
           if ($CFG->output_idnumber) {
-          	autoattend_print_user_row('ID&nbsp;:&nbsp;', '<div style="font-weight:bold;">$user_idnum</div>');
+          	autoattend_print_user_row('ID&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$user_idnum.'</div>');
           }
           autoattend_print_user_row(get_string('coursename','block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$course->fullname.'</div>');
           autoattend_print_user_row(get_string('classname', 'block_autoattend').'&nbsp;:&nbsp;', '<div style="font-weight:bold;">'.$classname.'</div>');
