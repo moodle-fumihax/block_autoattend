@@ -456,14 +456,22 @@ function autoattend_choose_grouping($courseid, $url, $url_options)
     global $OUTPUT;
     $options = array();
 
-    $groupings = groups_get_all_groupings($courseid);
+    //$groupings = groups_get_all_groupings($courseid);
+    $data = groups_get_course_data($courseid);
+    $groupings = $data->groupings;
     if ($groupings){
         $popupurl = $url.$url_options;          
         foreach ($groupings as $grouping) {
             $options [$grouping->id] = $grouping->name;
         }
+        $options[0] = get_string('allgrouping', 'block_autoattend');
     }
-    $options[0] = get_string('allgrouping', 'block_autoattend');
+    else {
+        $groups = $data->groups;
+        if ($groups){
+            $options[0] = get_string('allgrouping', 'block_autoattend');
+        }
+    }
 
     return $options;
 }
