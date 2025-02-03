@@ -180,8 +180,8 @@ function updateAttendance_show_table($course, $students, $sessdata, $settings, $
     if ($summertime!=0) $summertime_mark = '*';
 
     $url_options = '?course='.$course->id.'&amp;class='.$classid.'&amp;attend='.$attend.'&amp;attsid='.$attsid;
-    //$sessndate = strftime(get_string('strftimedmshort', 'block_autoattend'), $sessdata->sessdate + $summertime + $TIME_OFFSET);
-    $sessndate = strftime(get_string('strftimedmshort', 'block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET);
+    //$sessndate = jbxl_strftime(get_string('strftimedmshort', 'block_autoattend'), $sessdata->sessdate + $summertime + $TIME_OFFSET);
+    $sessndate = jbxl_strftime(get_string('strftimedmshort', 'block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET);
 
     $table = new html_table();
 
@@ -228,8 +228,8 @@ function updateAttendance_show_table($course, $students, $sessdata, $settings, $
                     $table->data[$student->id][] = get_string('novalue', 'block_autoattend');
                 }
                 else {
-                    $calleddate = strftime(get_string('strftimedmshort', 'block_autoattend'), $att->calledtime + $summertime + $TIME_OFFSET);
-                    $calledtime = strftime(get_string('strftimehmshort', 'block_autoattend'), $att->calledtime + $summertime + $TIME_OFFSET);
+                    $calleddate = jbxl_strftime(get_string('strftimedmshort', 'block_autoattend'), $att->calledtime + $summertime + $TIME_OFFSET);
+                    $calledtime = jbxl_strftime(get_string('strftimehmshort', 'block_autoattend'), $att->calledtime + $summertime + $TIME_OFFSET);
                     if ($sessndate===$calleddate) {
                         $table->data[$student->id][] = $calledtime;
                     }

@@ -77,13 +77,13 @@ function select_all_radio_in(elTagName, elClass, start, end)
           <td>
             <?php print_string('sessiondate','block_autoattend');?>:&nbsp; 
             <div style="font-weight:bold;">
-              <?php echo strftime(get_string('strftimedmyw',    'block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET).$summertime_mark;?>&nbsp;
+              <?php echo jbxl_strftime(get_string('strftimedmyw',    'block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET).$summertime_mark;?>&nbsp;
             </div>
           </td>
           <td>
             <div style="font-weight:bold;">
-              <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET);?>&nbsp;-
-              <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $sessdata->endtime   + $summertime + $TIME_OFFSET);?>&nbsp;
+              <?php echo jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET);?>&nbsp;-
+              <?php echo jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $sessdata->endtime   + $summertime + $TIME_OFFSET);?>&nbsp;
             </div>
           </td>
           <td>

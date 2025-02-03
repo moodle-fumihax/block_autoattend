@@ -95,8 +95,8 @@ if (!empty($confirm)) {
 			$sdate = $deletes[$key]->sessdate;
 			$stime = $deletes[$key]->starttime - $sdate;
 			// for Log
-			$str_sdate = strftime(get_string('strftimedmyw',   'block_autoattend'), $sdate + $TIME_OFFSET);
-			$str_stime = strftime(get_string('strftimehourmin','block_autoattend'), $stime + $TIME_OFFSET);
+			$str_sdate = jbxl_strftime(get_string('strftimedmyw',   'block_autoattend'), $sdate + $TIME_OFFSET);
+			$str_stime = jbxl_strftime(get_string('strftimehourmin','block_autoattend'), $stime + $TIME_OFFSET);
 			$loginfo = 'date='.$str_sdate.',time='.$str_stime.',method='.$deletes[$key]->method;
 			$event = autoattend_get_event($context, 'delete', '', $loginfo);
 			jbxl_add_to_log($event);

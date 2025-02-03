@@ -71,7 +71,7 @@ if (!empty($confirm)) {
         if ($confirm==1) {
             $info = new stdClass();
             $info->delnum = $DB->count_records_select('autoattend_sessions', 'endtime<'.$deldate);
-            $info->delstr = strftime(get_string('strftimedmy','block_autoattend'), $deldate);
+            $info->delstr = jbxl_strftime(get_string('strftimedmy','block_autoattend'), $deldate);
             include('html/delete_confirmDB.html');
         }
 

@@ -949,10 +949,10 @@ function autoattend_print_user($user, $course, $printing=null)
                 if ($att->classid==$classid or $att->classid==0) {
                     $num = $i + 1;
                     $table->data[$i][] = $num.$summertime_mark;
-                    //$table->data[$i][] = strftime(get_string('strftimedmyw',   'block_autoattend'), $att->sessdate  + $summertime + $TIME_OFFSET);
-                    $table->data[$i][] = strftime(get_string('strftimedmyw',   'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);
-                    $table->data[$i][] = strftime(get_string('strftimehourmin','block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);
-                    $table->data[$i][] = strftime(get_string('strftimehourmin','block_autoattend'), $att->endtime   + $summertime + $TIME_OFFSET);
+                    //$table->data[$i][] = jbxl_strftime(get_string('strftimedmyw',   'block_autoattend'), $att->sessdate  + $summertime + $TIME_OFFSET);
+                    $table->data[$i][] = jbxl_strftime(get_string('strftimedmyw',   'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);
+                    $table->data[$i][] = jbxl_strftime(get_string('strftimehourmin','block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);
+                    $table->data[$i][] = jbxl_strftime(get_string('strftimehourmin','block_autoattend'), $att->endtime   + $summertime + $TIME_OFFSET);
                     $table->data[$i][] = autoattend_get_user_classname($att->classid);
                     $table->data[$i][] = $att->description ? $att->description: get_string('nodescription', 'block_autoattend');
 
@@ -980,10 +980,10 @@ function autoattend_print_user($user, $course, $printing=null)
                         $table->data[$i][] = get_string('novalue', 'block_autoattend');;
                     }
                     else {
-                        //$sessndate  = strftime(get_string('strftimedmshort', 'block_autoattend'), $att->sessdate   + $summertime + $TIME_OFFSET);
-                        $sessndate  = strftime(get_string('strftimedmshort', 'block_autoattend'), $att->calledtime + $summertime + $TIME_OFFSET);
-                        $calleddate = strftime(get_string('strftimedmshort', 'block_autoattend'), $att->calledtime + $summertime + $TIME_OFFSET);
-                        $calledtime = strftime(get_string('strftimehmshort', 'block_autoattend'), $att->calledtime + $summertime + $TIME_OFFSET);
+                        //$sessndate  = jbxl_strftime(get_string('strftimedmshort', 'block_autoattend'), $att->sessdate   + $summertime + $TIME_OFFSET);
+                        $sessndate  = jbxl_strftime(get_string('strftimedmshort', 'block_autoattend'), $att->calledtime + $summertime + $TIME_OFFSET);
+                        $calleddate = jbxl_strftime(get_string('strftimedmshort', 'block_autoattend'), $att->calledtime + $summertime + $TIME_OFFSET);
+                        $calledtime = jbxl_strftime(get_string('strftimehmshort', 'block_autoattend'), $att->calledtime + $summertime + $TIME_OFFSET);
                         if ($sessndate===$calleddate) {
                             $table->data[$i][] = $calledtime;
                         }
@@ -1124,8 +1124,8 @@ function autoattend_make_download_data($courseid, $classes=null, $classid=0, $vi
         if ($sess = $DB->get_records_sql($qry)) {
             foreach($sess as $id=>$dsess) {
                 $summertime = autoattend_get_summertime($dsess->id, $use_summertime)*ONE_HOUR_TIME;
-                //$date = strftime(get_string('strftimedmshort','block_autoattend'), $dsess->sessdate + $summertime + $TIME_OFFSET);
-                $date = strftime(get_string('strftimedmshort','block_autoattend'), $dsess->starttime + $summertime + $TIME_OFFSET);
+                //$date = jbxl_strftime(get_string('strftimedmshort','block_autoattend'), $dsess->sessdate + $summertime + $TIME_OFFSET);
+                $date = jbxl_strftime(get_string('strftimedmshort','block_autoattend'), $dsess->starttime + $summertime + $TIME_OFFSET);
                 $datas->attr[0][$k++] = '';
                 $datas->data[0][$j++] = $date;
                 $courseses[] = $dsess->id;
@@ -1156,8 +1156,8 @@ function autoattend_make_download_data($courseid, $classes=null, $classid=0, $vi
         if ($sess = $DB->get_records_sql($qry)) {
             foreach($sess as $id=>$dsess) {
                 $summertime = autoattend_get_summertime($dsess->id, $use_summertime)*ONE_HOUR_TIME;
-                //$date = strftime(get_string('strftimedmshort','block_autoattend'), $dsess->sessdate + $summertime + $TIME_OFFSET);
-                $date = strftime(get_string('strftimedmshort','block_autoattend'), $dsess->starttime + $summertime + $TIME_OFFSET);
+                //$date = jbxl_strftime(get_string('strftimedmshort','block_autoattend'), $dsess->sessdate + $summertime + $TIME_OFFSET);
+                $date = jbxl_strftime(get_string('strftimedmshort','block_autoattend'), $dsess->starttime + $summertime + $TIME_OFFSET);
                 $datas->attr[0][$k++] = '';
                 $datas->data[0][$j++] = $date;
                 $courseses[] = $dsess->id;
@@ -2125,10 +2125,10 @@ function autoattend_email_teachers_attend($sess, $couseid)
         $course   = $DB->get_record('course', array('id'=>$courseid));
         $classes  = autoattend_get_session_classes($courseid);
 
-        //$daytime  = strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->sessdate  + $summertime + $TIME_OFFSET);
-        $daytime  = strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->starttime + $summertime + $TIME_OFFSET);
-        $starttm  = strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->starttime + $summertime + $TIME_OFFSET);
-        $endtm    = strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->endtime   + $summertime + $TIME_OFFSET);
+        //$daytime  = jbxl_strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->sessdate  + $summertime + $TIME_OFFSET);
+        $daytime  = jbxl_strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->starttime + $summertime + $TIME_OFFSET);
+        $starttm  = jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->starttime + $summertime + $TIME_OFFSET);
+        $endtm    = jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->endtime   + $summertime + $TIME_OFFSET);
         $pathname = $CFG->tempdir.'/autoattend/attendance_'.$sess->id.'_'.date('YmdHis').'.$$$';
         $filename = get_string('attendance', 'block_autoattend').'_'.$course->fullname.'_'.$daytime.'.csv';
 
@@ -2165,10 +2165,10 @@ function autoattend_email_teachers_key($sess, $courseid)
         //
         $courseid = $sess->courseid;
         $course   = $DB->get_record('course', array('id'=>$courseid));
-        //$daytime  = strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->sessdate  + $summertime + $TIME_OFFSET);
-        $daytime  = strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->starttime + $summertime + $TIME_OFFSET);
-        $starttm  = strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->starttime + $summertime + $TIME_OFFSET);
-        $endtm    = strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->endtime   + $summertime + $TIME_OFFSET);
+        //$daytime  = jbxl_strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->sessdate  + $summertime + $TIME_OFFSET);
+        $daytime  = jbxl_strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->starttime + $summertime + $TIME_OFFSET);
+        $starttm  = jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->starttime + $summertime + $TIME_OFFSET);
+        $endtm    = jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->endtime   + $summertime + $TIME_OFFSET);
 
         $info = new stdClass();
         $info->shortname = $course->shortname;
@@ -2201,10 +2201,10 @@ function autoattend_email_user($sess, $user, $status, $couseid)
         //
         $courseid = $sess->courseid;
         $course   = $DB->get_record('course', array('id'=>$courseid));
-        //$daytime  = strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->sessdate  + $summertime + $TIME_OFFSET);
-        $daytime  = strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->starttime + $summertime + $TIME_OFFSET);
-        $starttm  = strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->starttime + $summertime + $TIME_OFFSET);
-        $endtm    = strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->endtime   + $summertime + $TIME_OFFSET);
+        //$daytime  = jbxl_strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->sessdate  + $summertime + $TIME_OFFSET);
+        $daytime  = jbxl_strftime(get_string('strftimedmyw', 'block_autoattend'),    $sess->starttime + $summertime + $TIME_OFFSET);
+        $starttm  = jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->starttime + $summertime + $TIME_OFFSET);
+        $endtm    = jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $sess->endtime   + $summertime + $TIME_OFFSET);
 
         $info = new stdClass();
         $info->shortname = $course->shortname;

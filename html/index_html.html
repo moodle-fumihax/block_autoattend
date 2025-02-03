@@ -146,7 +146,7 @@ function clear_all() {
         <br /><br />
       <?php } ?>
       <?php $nowtime_help = $OUTPUT->help_icon('nowtime','block_autoattend');?>
-      <?php echo $nowtime_help.' '.strftime(get_string('strftimefull', 'block_autoattend'), time()+$TIME_OFFSET); ?>
+      <?php echo $nowtime_help.' '.jbxl_strftime(get_string('strftimefull', 'block_autoattend'), time()+$TIME_OFFSET); ?>
       &nbsp;
       <?php if ($use_summertime) echo '[no summer time display]'; ?>
       &nbsp;

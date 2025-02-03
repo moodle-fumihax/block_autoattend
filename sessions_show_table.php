@@ -82,10 +82,10 @@ function autoattend_sessions_show_table($sessions, $classes, $courseid, $classid
         $number = $i + 1;
         $number.= $summertime_mark;
 		$table->data[$i][] = $number;
-		//$table->data[$i][] = strftime(get_string('strftimedmyw',   'block_autoattend'), $sessdata->sessdate  + $summertime + $TIME_OFFSET);
-		$table->data[$i][] = strftime(get_string('strftimedmyw',   'block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET);
-		$table->data[$i][] = strftime(get_string('strftimehourmin','block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET);
-		$table->data[$i][] = strftime(get_string('strftimehourmin','block_autoattend'), $sessdata->endtime   + $summertime + $TIME_OFFSET);
+		//$table->data[$i][] = jbxl_strftime(get_string('strftimedmyw',   'block_autoattend'), $sessdata->sessdate  + $summertime + $TIME_OFFSET);
+		$table->data[$i][] = jbxl_strftime(get_string('strftimedmyw',   'block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET);
+		$table->data[$i][] = jbxl_strftime(get_string('strftimehourmin','block_autoattend'), $sessdata->starttime + $summertime + $TIME_OFFSET);
+		$table->data[$i][] = jbxl_strftime(get_string('strftimehourmin','block_autoattend'), $sessdata->endtime   + $summertime + $TIME_OFFSET);
 		$table->data[$i][] = autoattend_get_session_classname($sessdata->classid);
 		$table->data[$i][] = $sessdata->description ? $sessdata->description: get_string('nodescription', 'block_autoattend');
 		$table->data[$i][] = $sessdata->attendkey ? $sessdata->attendkey: get_string('novalue', 'block_autoattend');

@@ -216,7 +216,7 @@ function report_make_header(&$table, $course_sess, $classes, $settings, $url_opt
             }
             //
             $table->head [] = '<a href="'.$wwwBlock.'/updateAttendance.php'.$url_options.'&amp;sessdate='.$sessdata->sessdate.'&amp;attsid='.$sessdata->id.'">'.
-                              strftime(get_string('strftimedmshort','block_autoattend'), $sessdata->sessdate + $summertime + $TIME_OFFSET).'</a>'.$summertime_mark;
+                              jbxl_strftime(get_string('strftimedmshort', 'block_autoattend'), $sessdata->sessdate + $summertime + $TIME_OFFSET).'</a>'.$summertime_mark;
             $table->align[] = 'center';
             $table->size [] = '40px';
             $table->wrap [] = 'nowrap';
@@ -332,7 +332,7 @@ if ($isteacher or $isassist) {
     $weeks = array();
     if ($viewmode==='weeks') {
         $startdate = mktime(0, 0, 0, $smonth, $sday-$wday+1, $syear);
-        $format = get_string('strftimedmshort','block_autoattend');
+        $format = get_string('strftimedmshort', 'block_autoattend');
         //
         for ($i=1, $monday=$startdate; $monday<=$lastdate; $i++, $monday+=ONE_WEEK_TIME) {
             if ($DB->count_records_select('autoattend_sessions', "courseid={$course->id}".$where_classid.
@@ -360,11 +360,11 @@ if ($isteacher or $isassist) {
         if ($weeks[$i] <= $current+$TIME_OFFSET && !$found) {
             $found = true;
             $current = $weeks[$i] - $TIME_OFFSET;
-            $date_title = '<div style="font-weight:bold;">'.strftime($format, $weeks[$i]).'</div> | '.$date_title;
+            $date_title = '<div style="font-weight:bold;">'.jbxl_strftime($format, $weeks[$i]).'</div> | '.$date_title;
         } 
         else {
             $date_title = '<a href="'.$wwwMyURL.'?course='.$course->id.'&amp;class='.$classid.'&amp;current='.($weeks[$i]-$TIME_OFFSET).
-                    '&amp;sort='.$sort.'&amp;order='.$order.'&amp;viewmode='.$viewmode.'">'.strftime($format, $weeks[$i]).'</a> | '."\n".$date_title;
+                    '&amp;sort='.$sort.'&amp;order='.$order.'&amp;viewmode='.$viewmode.'">'.jbxl_strftime($format, $weeks[$i]).'</a> | '."\n".$date_title;
         }
     }
 

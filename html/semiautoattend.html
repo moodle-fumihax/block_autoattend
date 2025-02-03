@@ -43,9 +43,9 @@
                       if ($summertime>0) $summer_mark = '*';
                     ?>
                     <?php echo $summer_mark;?>
-                    <?php echo strftime(get_string('strftimedmyw',    'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);?>&nbsp;
-                    <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);?>&nbsp;-
-                    <?php echo strftime(get_string('strftimehourmin', 'block_autoattend'), $att->endtime   + $summertime + $TIME_OFFSET);?>&nbsp;
+                    <?php echo jbxl_strftime(get_string('strftimedmyw',    'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);?>&nbsp;
+                    <?php echo jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);?>&nbsp;-
+                    <?php echo jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $att->endtime   + $summertime + $TIME_OFFSET);?>&nbsp;
                     <?php echo autoattend_get_session_classname($att->classid);?>&nbsp;
                     <?php print_string('description','block_autoattend');?>:&nbsp;
                     <?php echo ($att->description ? $att->description : get_string('nodescription', 'block_autoattend'));?>

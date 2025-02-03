@@ -151,8 +151,8 @@ if ($mode==='multi' or $mode==='one') {
                     //
                     if ($count!=0) {    
                         //check whether this date is in our session days
-                        //notify(strftime(get_string('strftimedmy', 'block_autoattend'), $sdate).': '.get_string('sessionexist','block_autoattend'));
-                        $OUTPUT->notification(strftime(get_string('strftimedmy', 'block_autoattend'), $sdate).': '.get_string('sessionexist','block_autoattend'));
+                        //notify(jbxl_strftime(get_string('strftimedmy', 'block_autoattend'), $sdate).': '.get_string('sessionexist','block_autoattend'));
+                        $OUTPUT->notification(jbxl_strftime(get_string('strftimedmy', 'block_autoattend'), $sdate).': '.get_string('sessionexist','block_autoattend'));
                         $sdate += ONE_DAY_TIME;
                         continue;
                     }

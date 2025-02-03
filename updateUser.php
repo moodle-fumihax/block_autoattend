@@ -137,10 +137,10 @@ function updateUser_show_table($attitems, $settings, $classid, $courseid)
 
             $i++;
             $table->data[$att->id][] = $i.$summertime_mark; 
-            //$table->data[$att->id][] = strftime(get_string('strftimedmyw',    'block_autoattend'), $att->sessdate  + $summertime + $TIME_OFFSET);
-            $table->data[$att->id][] = strftime(get_string('strftimedmyw',    'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);
-            $table->data[$att->id][] = strftime(get_string('strftimehourmin', 'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);
-            $table->data[$att->id][] = strftime(get_string('strftimehourmin', 'block_autoattend'), $att->endtime   + $summertime + $TIME_OFFSET);
+            //$table->data[$att->id][] = jbxl_strftime(get_string('strftimedmyw',    'block_autoattend'), $att->sessdate  + $summertime + $TIME_OFFSET);
+            $table->data[$att->id][] = jbxl_strftime(get_string('strftimedmyw',    'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);
+            $table->data[$att->id][] = jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $att->starttime + $summertime + $TIME_OFFSET);
+            $table->data[$att->id][] = jbxl_strftime(get_string('strftimehourmin', 'block_autoattend'), $att->endtime   + $summertime + $TIME_OFFSET);
             $table->data[$att->id][] = autoattend_get_user_classname($att->classid);
             $table->data[$att->id][] = ($att->description ? $att->description : get_string('nodescription', 'block_autoattend'));
 
