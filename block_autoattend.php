@@ -12,16 +12,20 @@ require_once($CFG->dirroot.'/blocks/autoattend/locallib.php');
 
 class block_autoattend extends block_base 
 {
+    public $release = '';
+    public $version = '';
+
     function init() 
     {
         global $CFG;
+        global $PLUGIN_release;
 
         if (empty($plugin)) $plugin = new stdClass();
         include($CFG->dirroot.'/blocks/autoattend/version.php');
         //
         $this->title   = get_string('pluginname', 'block_autoattend');
         $this->version = $plugin->version;
-        $this->release = $plugin->release;
+        $this->release = $PLUGIN_release;
     }
 
 
