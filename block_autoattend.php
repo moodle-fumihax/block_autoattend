@@ -12,8 +12,8 @@ require_once($CFG->dirroot.'/blocks/autoattend/locallib.php');
 
 class block_autoattend extends block_base 
 {
-    public $release = '';
-    public $version = '';
+    var $release = '';
+    var $version = '';
 
     function init() 
     {
