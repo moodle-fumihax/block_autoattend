@@ -13,7 +13,7 @@ $classid  = optional_param('class', 0, PARAM_INTEGER);
 $mode     = optional_param('mode', '', PARAM_ALPHA);     // one or multi or empty
 
 if (($formdata = data_submitted()) and !confirm_sesskey()) {
-    print_error('invalidsesskey');
+    jbxl_print_error('invalidsesskey');
 }
 
 $urlparams['course'] = $courseid;
@@ -28,7 +28,7 @@ $back2URL = $wwwBlock.'/index.php';
 
 $course = $DB->get_record('course', array('id'=>$courseid));
 if (!$course) {
-    print_error('courseidwrong', 'block_autoattend');
+    jbxl_print_error('courseidwrong', 'block_autoattend');
 }
 
 require_login($course->id);
@@ -36,12 +36,12 @@ require_login($course->id);
 $context = jbxl_get_course_context($course->id);
 $isteacher = jbxl_is_teacher($USER->id, $context);
 if (!$isteacher) {
-    print_error('notaccessnoteacher', 'block_autoattend');
+    jbxl_print_error('notaccessnoteacher', 'block_autoattend');
 }
 
 $user = $DB->get_record('user', array('id'=>$USER->id));
 if (!$user) {
-    print_error('nosuchuser', 'block_autoattend');
+    jbxl_print_error('nosuchuser', 'block_autoattend');
 }
 
 
@@ -121,10 +121,10 @@ if ($mode==='multi' or $mode==='one') {
     $times = $endtime - $starttime;
         
     if($days <= 0) {
-        print_error('wrongdatesselected', 'block_autoattend', $wwwMyURL.'?course='.$courseid.'&amp;class='.$classid);
+        jbxl_print_error('wrongdatesselected', 'block_autoattend', $wwwMyURL.'?course='.$courseid.'&amp;class='.$classid);
     }
     else if($times <= 0) {
-        print_error('wrongtimesselected', 'block_autoattend', $wwwMyURL.'?course='.$courseid.'&amp;class='.$classid);
+        jbxl_print_error('wrongtimesselected', 'block_autoattend', $wwwMyURL.'?course='.$courseid.'&amp;class='.$classid);
     }
     else {
         // Getting first day of week
@@ -188,7 +188,7 @@ if ($mode==='multi' or $mode==='one') {
                         $sessnum++;
                     }
                     else {
-                        print_error('erroringeneratingsessions', 'block_autoattend', $wwwMyURL.'?course='.$course->id.'&amp;class='.$classid);
+                        jbxl_print_error('erroringeneratingsessions', 'block_autoattend', $wwwMyURL.'?course='.$course->id.'&amp;class='.$classid);
                     }
                     unset($rec);
                 }
@@ -204,7 +204,7 @@ if ($mode==='multi' or $mode==='one') {
             notice(get_string('sessionsgenerated', 'block_autoattend'), $back2URL.'?course='.$course->id.'&amp;class='.$classid);
         }
         else {
-            print_error('sessionsnogenerated', 'block_autoattend', $wwwMyURL.'?course='.$course->id.'&amp;class='.$classid);
+            jbxl_print_error('sessionsnogenerated', 'block_autoattend', $wwwMyURL.'?course='.$course->id.'&amp;class='.$classid);
         }
     }
 }

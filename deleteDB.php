@@ -18,7 +18,7 @@ $action   = optional_param('action','',  PARAM_ALPHA);
 $submit   = optional_param('submit','',  PARAM_TEXT);
 
 if (($formdata = data_submitted()) and !confirm_sesskey()) {
-    print_error('invalidsesskey');
+    jbxl_print_error('invalidsesskey');
 }
 
 $urlparams['course'] = $courseid;
@@ -36,7 +36,7 @@ if (isset($formdata->cancel)) {
 
 $course = $DB->get_record('course', array('id'=>$courseid));
 if (!$course) {
-    print_error('courseidwrong', 'block_autoattend');
+    jbxl_print_error('courseidwrong', 'block_autoattend');
 }
 
 // Check User
@@ -44,7 +44,7 @@ require_login($course->id);
 
 $isadmin = jbxl_is_admin($USER->id);
 if (!$isadmin) {
-    print_error('notaccessnoadmin', 'block_autoattend');
+    jbxl_print_error('notaccessnoadmin', 'block_autoattend');
 }
 
 

@@ -23,7 +23,7 @@ $sort     = optional_param('sort',  'firstname', PARAM_ALPHA);
 $order    = optional_param('order', 'ASC',PARAM_ALPHA);
 
 if (($formdata = data_submitted()) and !confirm_sesskey()) {
-    print_error('invalidsesskey');
+    jbxl_print_error('invalidsesskey');
 }
 
 $wwwBlock  = $CFG->wwwroot.'/blocks/autoattend';
@@ -52,7 +52,7 @@ $PAGE->set_url($this_url);
 
 $course = $DB->get_record('course', array('id'=>$courseid));
 if (!$course) {
-    print_error('courseidwrong', 'block_autoattend');
+    jbxl_print_error('courseidwrong', 'block_autoattend');
 }
 
 require_login($course->id);
@@ -63,13 +63,13 @@ $isteacher = jbxl_is_teacher($USER->id, $context);
 if (!$isteacher) {
     $isassist = jbxl_is_assistant($USER->id, $context);
     if (!$isassist) {
-           print_error('notaccessstudent', 'block_autoattend');
+           jbxl_print_error('notaccessstudent', 'block_autoattend');
     }
 }
 
 $user = $DB->get_record('user', array('id'=>$USER->id));
 if (!$user) {
-    print_error('nosuchuser', 'block_autoattend');
+    jbxl_print_error('nosuchuser', 'block_autoattend');
 }
 
 
@@ -328,7 +328,7 @@ include('tabs.php');
 
 $sessdata = $DB->get_record('autoattend_sessions', array('id'=>$attsid));
 if (!$sessdata) {
-    print_error('reqinfomiss', 'block_autoattend', $wwwBlock.'/index.php?course='.$courseid);
+    jbxl_print_error('reqinfomiss', 'block_autoattend', $wwwBlock.'/index.php?course='.$courseid);
 }
 
 //$sort = ($sort=='firstname' ? 'firstname' : 'lastname');

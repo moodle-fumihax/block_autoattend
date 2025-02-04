@@ -43,7 +43,7 @@ class block_autoattend extends block_base
         if ($courseid!=0) {
             $course = $DB->get_record('course', array('id'=>$courseid));
             if (!$course) {
-                print_error('courseidwrong', 'block_autoattend');
+                jbxl_print_error('courseidwrong', 'block_autoattend');
             }
         } 
         else {

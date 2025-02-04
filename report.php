@@ -24,7 +24,7 @@ $action   = optional_param('action', '',    PARAM_ALPHA);
 $viewmode = optional_param('viewmode','all',PARAM_ALPHA);    // View mode ('all', 'months', 'weeks') 
 
 if (($formdata = data_submitted()) and !confirm_sesskey()) {
-    print_error('invalidsesskey');
+    jbxl_print_error('invalidsesskey');
 }
 
 //
@@ -68,14 +68,14 @@ $PAGE->set_url('/blocks/autoattend/report.php', $urlparams);
 
 $course = $DB->get_record('course', array('id'=>$courseid));
 if (!$course) {
-    print_error('courseidwrong', 'block_autoattend');
+    jbxl_print_error('courseidwrong', 'block_autoattend');
 }
 
 require_login($course->id);
 
 $user = $DB->get_record('user', array('id'=>$USER->id));
 if (!$user) {
-    print_error('nosuchuser', 'block_autoattend');
+    jbxl_print_error('nosuchuser', 'block_autoattend');
 }
 
 //

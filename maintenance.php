@@ -11,7 +11,7 @@ $classid  = optional_param('class', 0,   PARAM_INTEGER);
 $submit   = optional_param('submit', '', PARAM_TEXT);
 
 if (($formdata = data_submitted()) and !confirm_sesskey()) {
-    print_error('invalidsesskey');
+    jbxl_print_error('invalidsesskey');
 }
 
 $urlparams['course'] = $courseid;
@@ -24,7 +24,7 @@ $wwwMyURL = $wwwBlock.'/maintenance.php';
 
 $course = $DB->get_record('course', array('id'=>$courseid));
 if (!$course) {
-    print_error('courseidwrong', 'block_autoattend');
+    jbxl_print_error('courseidwrong', 'block_autoattend');
 }
 
 require_login($course->id);
@@ -32,12 +32,12 @@ require_login($course->id);
 $context = jbxl_get_course_context($course->id);
 $isteacher = jbxl_is_teacher($USER->id, $context);
 if (!$isteacher) {
-    print_error('notaccessnoteacher', 'block_autoattend');
+    jbxl_print_error('notaccessnoteacher', 'block_autoattend');
 }
 
 $user = $DB->get_record('user', array('id'=>$USER->id));
 if (!$user) {
-    print_error('nosuchuser', 'block_autoattend');
+    jbxl_print_error('nosuchuser', 'block_autoattend');
 }
 
 

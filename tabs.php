@@ -11,7 +11,7 @@ require_once('jbxl/jbxl_moodle_tools.php');
 
 if (empty($classid)) $classid = 0;
 if (empty($user) or empty($course)) {
-    print_error('notcallthis', 'block_autoattend');
+    jbxl_print_error('notcallthis', 'block_autoattend');
 }
 
 if (empty($currenttab)) {

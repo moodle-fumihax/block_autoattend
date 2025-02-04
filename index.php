@@ -17,7 +17,7 @@ $studentid  = optional_param('student', 0,   PARAM_INTEGER);
 $printing   = optional_param('printing', '', PARAM_ALPHA);
 
 if (($formdata = data_submitted()) and !confirm_sesskey()) {
-    print_error('invalidsesskey');
+    jbxl_print_error('invalidsesskey');
 }
 if ($classid<0) $classid = 0;
 
@@ -41,14 +41,14 @@ $_SESSION['update'] = true;
 
 $course = $DB->get_record('course', array('id'=>$courseid));
 if (!$course) {
-    print_error('courseidwrong', 'block_autoattend');
+    jbxl_print_error('courseidwrong', 'block_autoattend');
 }
 
 require_login($course->id);
     
 $user = $DB->get_record('user', array('id'=>$USER->id));
 if (!$user) {
-    print_error('nosuchuser', 'block_autoattend');
+    jbxl_print_error('nosuchuser', 'block_autoattend');
 }
 
 //
@@ -95,7 +95,7 @@ if ($printing) {
             autoattend_print_user($student, $course, 'printing');
         }
         else {
-            print_error('nosuchuser', 'block_autoattend');
+            jbxl_print_error('nosuchuser', 'block_autoattend');
         }
     }
     else {
@@ -127,7 +127,7 @@ if ($isteacher or $isassist) {
             //jbxl_add_to_log($event);
         } 
         else {
-            print_error('nosuchuser', 'block_autoattend');
+            jbxl_print_error('nosuchuser', 'block_autoattend');
         }
     } 
     else {  // 授業一覧の表示

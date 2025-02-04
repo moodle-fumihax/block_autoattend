@@ -5,23 +5,23 @@
 //
 
 
-require_once('../../config.php');	
+require_once('../../config.php');    
 require_once(dirname(__FILE__).'/locallib.php');
 
 
 $courseid = required_param('course', PARAM_INTEGER);  // Course id
-$attsid	  = required_param('attsid', PARAM_INTEGER);
+$attsid      = required_param('attsid', PARAM_INTEGER);
 $classid  = optional_param('class', 0, PARAM_INTEGER);
 $confirm  = optional_param('confirm','', PARAM_INTEGER);
 $submit   = optional_param('submit','',  PARAM_TEXT);
 
 if (($formdata = data_submitted()) and !confirm_sesskey()) {
-	print_error('invalidsesskey');
+    jbxl_print_error('invalidsesskey');
 }
 
 $urlparams['course'] = $courseid;
 $urlparams['attsid'] = $attsid;
-if ($classid) $urlparams['class'] 	= $classid;
+if ($classid) $urlparams['class']     = $classid;
 if ($confirm) $urlparams['confirm'] = $confirm;
 $PAGE->set_url('/blocks/autoattend/returntoN.php', $urlparams);
 
@@ -30,12 +30,12 @@ $wwwMyURL = $wwwBlock.'/returntoN.php';
 
 
 if (!empty($submit) && $submit==get_string('cancel')) {
-	redirect('updateSession.php?course='.$courseid.'&amp;class='.$classid.'&amp;attsid='.$attsid);
+    redirect('updateSession.php?course='.$courseid.'&amp;class='.$classid.'&amp;attsid='.$attsid);
 }
-	
+    
 $course = $DB->get_record('course', array('id'=>$courseid));
 if (!$course) {
-	print_error('courseidwrong', 'block_autoattend');
+    jbxl_print_error('courseidwrong', 'block_autoattend');
 }
 
 require_login($course->id);
@@ -43,21 +43,21 @@ require_login($course->id);
 $context = jbxl_get_course_context($course->id);
 $isteacher = jbxl_is_teacher($USER->id, $context);
 if (!$isteacher) {
-	print_error('notaccessnoteacher', 'block_autoattend');
+    jbxl_print_error('notaccessnoteacher', 'block_autoattend');
 }
 
 $att = $DB->get_record('autoattend_sessions', array('id'=>$attsid));
 if (!$att) {
-	print_error('nosuchsession', 'block_autoattend');
+    jbxl_print_error('nosuchsession', 'block_autoattend');
 }
 
 
 // Print Header
 if ($course->category) {
-	$title = get_string('toNtitle','block_autoattend').' '.get_string('session','block_autoattend');
+    $title = get_string('toNtitle','block_autoattend').' '.get_string('session','block_autoattend');
 } 
 else {
-	$title = $course->shortname.': '.get_string('autoattend','block_autoattend');
+    $title = $course->shortname.': '.get_string('autoattend','block_autoattend');
 }
 
 $PAGE->set_title($title);
@@ -70,18 +70,18 @@ echo $OUTPUT->header();
 
 // Return to N
 if (!empty($confirm) and $submit==get_string('toNok','block_autoattend')) {
-	$rec = new stdClass();
-	$rec->id	= $att->id;
-	$rec->state = 'N';
-	$result = $DB->update_record('autoattend_sessions', $rec);
-	//if ($result) {
-    //	$loginfo = 'id='.$att->id.',method='.$att->method.',state='.$att->state.',N';
-    //	$event = autoattend_get_event($context, 'return', $urlparams);
-    //	jbxl_add_to_log($event);
-	//}
-	autoattend_return_to_Y($att->id);
-	//
-	redirect('index.php?course='.$course->id.'&amp;class='.$classid);
+    $rec = new stdClass();
+    $rec->id    = $att->id;
+    $rec->state = 'N';
+    $result = $DB->update_record('autoattend_sessions', $rec);
+    //if ($result) {
+    //    $loginfo = 'id='.$att->id.',method='.$att->method.',state='.$att->state.',N';
+    //    $event = autoattend_get_event($context, 'return', $urlparams);
+    //    jbxl_add_to_log($event);
+    //}
+    autoattend_return_to_Y($att->id);
+    //
+    redirect('index.php?course='.$course->id.'&amp;class='.$classid);
 }
 
 
