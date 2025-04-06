@@ -148,10 +148,10 @@ class block_autoattend extends block_base
         $this->content->footer = '<hr />';
         if (autoattend_disp_feedback($course->id)) {
             if ($isteacher or $isassist) {
-                $this->content->footer.= '<a href="https://el.mml.tuis.ac.jp/moodle/mod/feedback/view.php?id=528" target="_blank">';
+                $this->content->footer.= '<a href="https://el.nsl.tuis.ac.jp/moodle/mod/feedback/view.php?id=528" target="_blank">';
             }
             elseif ($isstudent) {
-                $this->content->footer.= '<a href="https://el.mml.tuis.ac.jp/moodle/mod/feedback/view.php?id=529" target="_blank">';
+                $this->content->footer.= '<a href="https://el.nsl.tuis.ac.jp/moodle/mod/feedback/view.php?id=529" target="_blank">';
             }
             $this->content->footer.= get_string('feedback','block_autoattend').'</a><br />';
         }
