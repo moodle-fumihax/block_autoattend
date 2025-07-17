@@ -94,12 +94,14 @@ if ($action=='update') {
 
     $attendkey  = optional_param('attendkey', '', PARAM_ALPHA);
     $randomkey  = optional_param('randomkey', '', PARAM_INTEGER);
-    $summertime = optional_param('newsummer',  3, PARAM_INTEGER);
+    //$summertime = optional_param('newsummer', 3, PARAM_INTEGER);
+    $summertime = optional_param('newsummer', 13, PARAM_INTEGER);
     $denysameip = optional_param('denysameip', 0, PARAM_INTEGER);
 
     if (empty($denysameip)) $denysameip = '0';
 
-    $summertime = $summertime - 3;  // $summer = array(1=>-2,-1,0,1,2); in html/updateSession.html
+    //$summertime = $summertime - 3;  // $summer = array(1=>-2,-1,0,1,2); in html/updateSession.html
+    $summertime = $summertime - 13;  // $summer = array(1=>-2,-1,0,1,2); in html/updateSession.html
     $starttime  = $shour*ONE_HOUR_TIME + $smin*ONE_MIN_TIME - $TIME_OFFSET - $summertime*ONE_HOUR_TIME;
     $endtime    = $starttime + ($dhour-1)*ONE_HOUR_TIME + ($dmin-1)*MIN_INTVL_TIME*ONE_MIN_TIME;
     $latetime   = ($lmin - 1)*MIN_INTVL_TIME*ONE_MIN_TIME;

@@ -80,7 +80,8 @@ if ($mode==='multi' or $mode==='one') {
     $attendkey  = required_param('attendkey',  PARAM_ALPHA);
     $allowip    = required_param('allowip',    PARAM_TEXT); 
 
-    $summertime = optional_param('summer',     3,  PARAM_INTEGER);
+    //$summertime = optional_param('summer',     3,  PARAM_INTEGER);
+    $summertime = optional_param('summer',    13,  PARAM_INTEGER);
     $randomkey  = optional_param('randomkey',  0,  PARAM_INTEGER);
     $denysameip = optional_param('denysameip', 0,  PARAM_INTEGER);
     $desc       = optional_param('desc',       '', PARAM_TEXT);
@@ -96,7 +97,8 @@ if ($mode==='multi' or $mode==='one') {
 
     if (empty($denysameip)) $denysameip = '0';
 
-    $summertime = $summertime - 3;  // $summer = array(1=>-2,-1,0,1,2); in html/add_session.html
+    //$summertime = $summertime - 3;  // $summer = array(1=>-2,-1,0,1,2); in html/add_session.html
+    $summertime = $summertime - 13;  // $summer = array(1=>-2,-1,0,1,2); in html/add_session.html
     $starttime  = $shour*ONE_HOUR_TIME + $smin*ONE_MIN_TIME - $TIME_OFFSET - $summertime*ONE_HOUR_TIME;
     $endtime    = $starttime + ($dhour-1)*ONE_HOUR_TIME + ($dmin-1)*MIN_INTVL_TIME*ONE_MIN_TIME;
     $startdate  = mktime(0, 0, 0, $startmonth, $startday, $startyear);

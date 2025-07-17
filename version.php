@@ -8,10 +8,10 @@ $plugin->component = 'block_autoattend';  // Full name of the plugin (used for d
 $plugin->cron      = 0;
 $plugin->maturity  = MATURITY_STABLE;
 
-//$plugin->release = '2.7.4';
-$PLUGIN_release    = '2.7.5';
+$PLUGIN_release    = '2.7.6';
 
-$plugin->version   = 2025022500;    // v2.7.5 fix default locale at jbxl_strftime
+$plugin->version   = 2025071400;    // v2.7.6 summertime -12...+14
+//$plugin->version = 2025022500;    // v2.7.5 fix default locale at jbxl_strftime
 //$plugin->version = 2025020300;    // v2.7.4 strftime(deprecated) -> jbxl_strftime and $plugin->release -> $PLUGIN_release
 //$plugin->version = 2024032301;    // v2.7.3 get_string('grade') -> get_string('attendgrade', 'block_autoattend');
 //$plugin->version = 2024021103;    // v2.7.2 repackege
