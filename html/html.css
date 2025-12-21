@@ -1,3 +1,37 @@
+/************************************/
+/* Tables */
+
+/*
+ * 枠線のないテーブルにしたい場合は，HTML 側で <table class="... noborder"> を付ける．
+ * 例）<table class="noborder">
+ * 例）<table class="generalbox noborder">
+ */
+body.path-blocks-autoattend table.noborder,
+body.path-blocks-autoattend table.noborder tr,
+body.path-blocks-autoattend table.noborder td,
+body.path-blocks-autoattend table.noborder th,
+/*body.path-blocks-autoattend table.noborder thead,*/
+body.path-blocks-autoattend table.noborder tbody {
+    border-style: none !important;
+}
+
+body.path-blocks-autoattend table.noallborder,
+body.path-blocks-autoattend table.noallborder * {
+    border-style: none !important;
+}
+
+/************************************/
+/* print_tabs() */
+
+/* 外枠なしで中央寄せ（Flex 方式） */
+body.path-blocks-autoattend .autoattend-tabs-center {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.0em;
+}
+
+
+/************************************/
 
 table {
 	margin-bottom: 0.3em;

@@ -2,7 +2,7 @@
   <?php include("html.css")?>
 </style>
 
-<table border="0" align="center">
+<table border="0" align="center" class="noborder">
   <tr>
     <td align="center">
 <!--
@@ -17,7 +17,7 @@
   </tr>
 </table>
 
-<table border="0" align="center">
+<table border="0" align="center" class="noborder">
   <tr>
     <td align="center">
 <!--
@@ -34,7 +34,7 @@
   <form name="delete" action="<?php echo $wwwMyURL;?>" method="post">
     <tr>
       <td class="generalboxcontent" style="border: thin solid #000;">
-        <table border="0" align="center">
+        <table border="0" align="center" class="noborder">
           <?php foreach($deletes as $key => $att) { ?>
             <tr>
               <td>
@@ -64,7 +64,7 @@
     </tr>
     <tr>
       <td class="generalboxcontent">
-        <table border="0" align="center">
+        <table border="0" align="center" class="noborder">
           <tr>
             <td>
               <input type="hidden" name="sesskey" value="<?php echo sesskey();?>" />

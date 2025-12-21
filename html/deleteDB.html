@@ -2,7 +2,7 @@
   <?php include("html.css")?>
 </style>
 
-<table border="0" align="center">
+<table border="0" align="center" class="noborder">
   <tr>
     <td align="center">
 <!--
@@ -17,7 +17,7 @@
   </tr>
 </table>
 
-<table border="0" align="center">
+<table border="0" align="center" class="noborder">
   <tr>
     <td align="center">
 <!--
@@ -43,9 +43,15 @@
             <td align="center">
               <?php 
                 $oldtime = strtotime('2001-01-01');
-                echo html_writer::select_time($date_name1.'s', 'del'.$date_name1, $oldtime);
-                echo html_writer::select_time($date_name2.'s', 'del'.$date_name2, $oldtime);
-                echo html_writer::select_time($date_name3.'s', 'del'.$date_name3, $oldtime);
+                $out  = html_writer::select_time($date_name1.'s', 'del'.$date_name1, $oldtime);
+                $out .= html_writer::select_time($date_name2.'s', 'del'.$date_name2, $oldtime);
+                $out .= html_writer::select_time($date_name3.'s', 'del'.$date_name3, $oldtime);
+
+                echo html_writer::tag('span', $out, ['class' => 'd-inline-flex flex-wrap gap-2 align-items-center']);
+
+                //echo html_writer::select_time($date_name1.'s', 'del'.$date_name1, $oldtime);
+                //echo html_writer::select_time($date_name2.'s', 'del'.$date_name2, $oldtime);
+                //echo html_writer::select_time($date_name3.'s', 'del'.$date_name3, $oldtime);
               ?>
             </td>
           </tr>

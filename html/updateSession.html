@@ -2,7 +2,7 @@
   <?php include("html.css")?>
 </style>
 
-<table align="center" class="generalbox">
+<table align="center" class="generalbox noborder">
   <tr>
     <td align="center">
 <!--
@@ -73,9 +73,14 @@
             <td>
               <?php 
                 $sedate = $att->sessdate;
-                echo html_writer::select_time($date_name1.'s', 'new'.$date_name1, $sedate);
-                echo html_writer::select_time($date_name2.'s', 'new'.$date_name2, $sedate);
-                echo html_writer::select_time($date_name3.'s', 'new'.$date_name3, $sedate);
+                $out  = html_writer::select_time($date_name1.'s', 'new'.$date_name1, $sedate);
+                $out .= html_writer::select_time($date_name2.'s', 'new'.$date_name2, $sedate);
+                $out .= html_writer::select_time($date_name3.'s', 'new'.$date_name3, $sedate);
+                echo html_writer::tag('span', $out, ['class' => 'd-inline-flex align-items-center flex-wrap gap-2']);
+
+                //echo html_writer::select_time($date_name1.'s', 'new'.$date_name1, $sedate);
+                //echo html_writer::select_time($date_name2.'s', 'new'.$date_name2, $sedate);
+                //echo html_writer::select_time($date_name3.'s', 'new'.$date_name3, $sedate);
               ?>
             </td>
           </tr>
@@ -97,10 +102,17 @@
               <?php 
                 $starth = $att->starttime + $summertime;
 				if ($starth==0) $starth = 1;
-                echo html_writer::select_time('hours', 'newshour', $starth);
-                echo '&nbsp;'.get_string('hour','block_autoattend');
-                echo '&nbsp;'.html_writer::select_time('minutes', 'newsmin', $starth, 5);
-                echo '&nbsp;'.get_string('minute','block_autoattend');
+
+                $out  = html_writer::select_time('hours', 'newshour', $starth);
+                $out .= html_writer::span(' '.get_string('hour','block_autoattend').' ');
+                $out .= html_writer::select_time('minutes', 'newsmin', $starth, 5);
+                $out .= html_writer::span(' '.get_string('minute','block_autoattend'));
+                echo html_writer::tag('span', $out, ['class' => 'd-inline-flex align-items-center flex-wrap gap-1']);
+
+                //echo html_writer::select_time('hours', 'newshour', $starth);
+                //echo '&nbsp;'.get_string('hour','block_autoattend');
+                //echo '&nbsp;'.html_writer::select_time('minutes', 'newsmin', $starth, 5);
+                //echo '&nbsp;'.get_string('minute','block_autoattend');
               ?>
             </td>
           </tr>
@@ -127,11 +139,19 @@
             </td>
             <td>
               <?php 
+
                 $dhours = array(1=>'00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23');
-                echo html_writer::select($dhours, 'newdhour', $dhour+1, false).'&nbsp;'.get_string('duration_hour','block_autoattend').'&nbsp';
                 $minidx = floor($dmin/5) + 1;
                 $dmints = array(1=>'00','05','10','15','20','25','30','35','40','45','50','55');
-                echo html_writer::select($dmints, 'newdmin', $minidx, false).'&nbsp;'.get_string('minute','block_autoattend');
+
+                $out  = html_writer::select($dhours, 'newdhour', $dhour+1, false);
+                $out .= html_writer::span(' '.get_string('duration_hour','block_autoattend').' ');
+                $out .= html_writer::select($dmints, 'newdmin', $minidx, false);
+                $out .= html_writer::span(' '.get_string('minute','block_autoattend'));
+                echo html_writer::tag('span', $out, ['class' => 'd-inline-flex align-items-center flex-wrap gap-1']);
+
+                //echo html_writer::select($dhours, 'newdhour', $dhour+1, false).'&nbsp;'.get_string('duration_hour','block_autoattend').'&nbsp';
+                //echo html_writer::select($dmints, 'newdmin', $minidx, false).'&nbsp;'.get_string('minute','block_autoattend');
               ?>
             </td>
           </tr>
@@ -152,10 +172,15 @@
             </td>
             <td>
               <?php 
-                //$summers = array(1=>-2,-1,0,1,2,3);
                 $summers = array(1=>-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14);
-                //echo html_writer::select($summers, 'newsummer', $att->summertime+3, false).'&nbsp;'.get_string('hours','block_autoattend');
-                echo html_writer::select($summers, 'newsummer', $att->summertime+13, false).'&nbsp;'.get_string('hours','block_autoattend');
+
+                $out  = html_writer::select($summers, 'newsummer', $att->summertime+13, false);
+                $out .= html_writer::span(' '.get_string('hours','block_autoattend'));
+                echo html_writer::tag('span', $out, ['class' => 'd-inline-flex align-items-center flex-wrap gap-1']);
+
+                //echo html_writer::select($summers, 'newsummer', $att->summertime+13, false).'&nbsp;'.get_string('hours','block_autoattend');
+                ////$summers = array(1=>-2,-1,0,1,2,3);
+                ////echo html_writer::select($summers, 'newsummer', $att->summertime+3, false).'&nbsp;'.get_string('hours','block_autoattend');
               ?>
             </td>
           </tr>
@@ -176,9 +201,14 @@
             </td>
             <td>
               <?php 
-                $ltimes = array(1=>0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180);
-                echo html_writer::select($ltimes, 'newlmin', $late_order, false);
-                echo '&nbsp;'.get_string('minute','block_autoattend');
+                $ltimes = array_combine(range(0, 180, 5), range(0, 180, 5));
+                $out  = html_writer::select($ltimes, 'newlmin', $late_order, false, ['class' => 'd-inline-block w-auto']);
+                $out .= html_writer::span(' '.get_string('minute','block_autoattend'));
+                echo html_writer::tag('span', $out, ['class' => 'd-inline-flex align-items-center flex-wrap gap-1']);
+
+                //$ltimes = array(1=>0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180);
+                //echo html_writer::select($ltimes, 'newlmin', $late_order, false);
+                //echo '&nbsp;'.get_string('minute','block_autoattend');
               ?>
             </td>
           </tr>

@@ -31,7 +31,7 @@ function valid_item(ischecked)
 
 
 
-<table align="center" class="generalbox">
+<table align="center" class="generalbox noborder">
   <tr>
     <td colspan="2" align="center">
 <!--
@@ -79,10 +79,15 @@ function valid_item(ischecked)
               <div style="font-weight:bold;"><?php print_string('sessionstartdate','block_autoattend')?>: </div>
             </td>
             <td>
-              <?php 
-                echo html_writer::select_time($date_name1.'s', 'start'.$date_name1, 0);
-                echo html_writer::select_time($date_name2.'s', 'start'.$date_name2, 0);
-                echo html_writer::select_time($date_name3.'s', 'start'.$date_name3, 0);
+              <?php
+                $html  = html_writer::select_time($date_name1.'s', 'start'.$date_name1, 0);
+                $html .= html_writer::select_time($date_name2.'s', 'start'.$date_name2, 0);
+                $html .= html_writer::select_time($date_name3.'s', 'start'.$date_name3, 0);
+                echo html_writer::tag('div', $html, ['class' => 'd-inline-flex flex-wrap gap-2 align-items-center']);
+
+                //echo html_writer::select_time($date_name1.'s', 'start'.$date_name1, 0);
+                //echo html_writer::select_time($date_name2.'s', 'start'.$date_name2, 0);
+                //echo html_writer::select_time($date_name3.'s', 'start'.$date_name3, 0);
               ?>
             </td>
           </tr>
@@ -92,9 +97,14 @@ function valid_item(ischecked)
             </td>
             <td>
               <?php 
-                echo html_writer::select_time($date_name1.'s', 'end'.$date_name1, 0);
-                echo html_writer::select_time($date_name2.'s', 'end'.$date_name2, 0);
-                echo html_writer::select_time($date_name3.'s', 'end'.$date_name3, 0);
+                $html  = html_writer::select_time($date_name1.'s', 'end'.$date_name1, 0);
+                $html .= html_writer::select_time($date_name2.'s', 'end'.$date_name2, 0);
+                $html .= html_writer::select_time($date_name3.'s', 'end'.$date_name3, 0);
+                echo html_writer::tag('div', $html, ['class' => 'd-inline-flex flex-wrap gap-2 align-items-center']);
+
+                //echo html_writer::select_time($date_name1.'s', 'end'.$date_name1, 0);
+                //echo html_writer::select_time($date_name2.'s', 'end'.$date_name2, 0);
+                //echo html_writer::select_time($date_name3.'s', 'end'.$date_name3, 0);
               ?>
             </td>
           </tr>
@@ -118,7 +128,8 @@ function valid_item(ischecked)
             </td>
             <td>
               <?php 
-                echo html_writer::select(array(1=>1,2,3,4,5,6,7,8), 'period', 1, false);
+                //echo html_writer::select(array(1=>1,2,3,4,5,6,7,8), 'period', 1, false);
+                echo html_writer::select(array(1=>1,2,3,4,5,6,7,8), 'period', 1, false, array('class' => 'd-inline-block w-auto'));
                 echo '&nbsp;'.get_string('week','block_autoattend');
               ?>
             </td>
@@ -130,10 +141,16 @@ function valid_item(ischecked)
             </td>
             <td>
               <?php 
-                echo html_writer::select_time('hours', 'shour', $nowtime + (MIN_INTVL_TIME-1)*ONE_MIN_TIME);
-                echo '&nbsp;'.get_string('hour','block_autoattend');
-                echo '&nbsp;'.html_writer::select_time('minutes', 'smin', $nowtime, MIN_INTVL_TIME);
-                echo '&nbsp;'.get_string('minute','block_autoattend');
+                $out  = html_writer::select_time('hours', 'shour', $nowtime + (MIN_INTVL_TIME-1)*ONE_MIN_TIME);
+                $out .= html_writer::span(' '.get_string('hour','block_autoattend'));
+                $out .= html_writer::select_time('minutes', 'smin', $nowtime, MIN_INTVL_TIME);
+                $out .= html_writer::span(' '.get_string('minute','block_autoattend'));
+                echo html_writer::tag('span', $out, ['class' => 'd-inline-flex align-items-center flex-wrap gap-1']);
+
+                //echo html_writer::select_time('hours', 'shour', $nowtime + (MIN_INTVL_TIME-1)*ONE_MIN_TIME);
+                //echo '&nbsp;'.get_string('hour','block_autoattend');
+                //echo '&nbsp;'.html_writer::select_time('minutes', 'smin', $nowtime, MIN_INTVL_TIME);
+                //echo '&nbsp;'.get_string('minute','block_autoattend');
               ?>
             </td>
           </tr>
@@ -144,9 +161,17 @@ function valid_item(ischecked)
             <td>
               <?php 
                 $dhours = array(1=>'00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23');
-                echo html_writer::select($dhours, 'dhour', 1, false).'&nbsp;'.get_string('duration_hour','block_autoattend').'&nbsp';
                 $dmints = array(1=>'00','05','10','15','20','25','30','35','40','45','50','55');
-                echo html_writer::select($dmints, 'dmin', 7, false).'&nbsp;'.get_string('minute','block_autoattend');
+
+                $out  = html_writer::select($dhours, 'dhour', 1, false, ['class' => 'd-inline-block w-auto']);
+                $out .= html_writer::span(' '.get_string('duration_hour','block_autoattend').' ');
+                $out .= html_writer::select($dmints, 'dmin', 7, false, ['class' => 'd-inline-block w-auto']);
+                $out .= html_writer::span(' '.get_string('minute','block_autoattend'));
+
+                echo html_writer::tag('span', $out, [ 'class' => 'd-inline-flex align-items-center flex-wrap gap-1' ]);
+
+                //echo html_writer::select($dhours, 'dhour', 1, false).'&nbsp;'.get_string('duration_hour','block_autoattend').'&nbsp';
+                //echo html_writer::select($dmints, 'dmin', 7, false).'&nbsp;'.get_string('minute','block_autoattend');
               ?>
             </td>
           </tr>
@@ -159,10 +184,13 @@ function valid_item(ischecked)
             </td>
             <td>
               <?php 
+                $summers = array_combine(range(-12, 14), range(-12, 14));
+                echo html_writer::select($summers, 'summer', 0, false, [ 'class' => 'd-inline-block w-auto' ]); echo ' '.get_string('hours','block_autoattend');
+
+                //$summers = array(1=>-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14);
+                //echo html_writer::select($summers, 'summer', 13, false).'&nbsp;'.get_string('hours','block_autoattend');
                 //$summers = array(1=>-2,-1,0,1,2);
-                $summers = array(1=>-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14);
                 //echo html_writer::select($summers, 'summer', 3, false).'&nbsp;'.get_string('hours','block_autoattend');
-                echo html_writer::select($summers, 'summer', 13, false).'&nbsp;'.get_string('hours','block_autoattend');
               ?>
             </td>
           </tr>
@@ -174,8 +202,12 @@ function valid_item(ischecked)
             </td>
             <td>
               <?php 
-                $ltimes = array(1=>0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180);
-                echo html_writer::select($ltimes, 'lmin', 1, false).'&nbsp;'.get_string('minute','block_autoattend');
+                $ltimes = array_combine(range(0, 180, 5), range(0, 180, 5));
+                echo html_writer::select($ltimes, 'lmin', 0, false, ['class' => 'd-inline-block w-auto']); 
+                echo ' '.get_string('minute','block_autoattend');
+
+                //$ltimes = array(1=>0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180);
+                //echo html_writer::select($ltimes, 'lmin', 1, false).'&nbsp;'.get_string('minute','block_autoattend');
               ?>
             </td>
           </tr>

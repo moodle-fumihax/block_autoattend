@@ -58,8 +58,12 @@ if ($isteacher or $isassist) {
     $toprow[] = new tabobject('', $CFG->wwwroot.'/course/view.php?id='.$course->id, get_string('returnto_course','block_autoattend'));
 }
 
+echo '<style type="text/css">';
+include(__DIR__.'/html/html.css');
+echo '</style>';
+
 $tabs = array($toprow);
-echo '<table align="center" style="margin-bottom:0.0em;"><tr><td>';
+echo '<table class="autoattend-tabs-center noborder" align="center" style="margin-bottom:0.0em;"><tr><td>';
 print_tabs($tabs, $currenttab, $inactive, $activetwo);
 echo '</td></tr></table>';
 

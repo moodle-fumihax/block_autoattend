@@ -2,7 +2,7 @@
   <?php include("html.css")?>
 </style>
 
-<table align="center" class="generalbox">
+<table align="center" class="generalbox noborder">
   <tr>
     <td align="center">
       <table border="0" style="margin: 0px 0px 0px 0px;">
@@ -37,13 +37,13 @@
         </tr>
         <tr>
           <td align="center">
-            <?php echo '<a href='.$wwwBlock.'/cleanupDB.php?course='.$courseid.' target="_blank" ><div style="font-weight:bold;">'.get_string('cleanupdb','block_autoattend').'</div></a>';?>
+            <?php echo '<a href='.$wwwBlock.'/cleanupDB.php?course='.$courseid.' target="_blank" ><span style="font-weight:bold;">'.get_string('cleanupdb','block_autoattend').'</span></a>';?>
             <?php echo $OUTPUT->help_icon('cleanupdb','block_autoattend');?>
           </td>
         </tr>
         <tr>
           <td align="center">
-            <?php echo '<a href='.$wwwBlock.'/deleteDB.php?course='.$courseid.' target="_blank" ><div style="font-weight:bold;">'.get_string('deletedb','block_autoattend').'</div></a>';?>
+            <?php echo '<a href='.$wwwBlock.'/deleteDB.php?course='.$courseid.' target="_blank" ><span style="font-weight:bold;">'.get_string('deletedb','block_autoattend').'</span></a>';?>
             <?php echo $OUTPUT->help_icon('deletedb','block_autoattend');?>
           </td>
         </tr>
