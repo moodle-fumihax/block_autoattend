@@ -15,10 +15,6 @@ body.path-blocks-autoattend table.noborder tbody {
     border-style: none !important;
 }
 
-body.path-blocks-autoattend table.noallborder,
-body.path-blocks-autoattend table.noallborder * {
-    border-style: none !important;
-}
 
 /************************************/
 /* print_tabs() */
@@ -28,6 +24,11 @@ body.path-blocks-autoattend .autoattend-tabs-center {
     display: flex;
     justify-content: center;
     margin-bottom: 0.0em;
+}
+
+
+.tabtree .tabrow0 li {
+	margin-right: 0px;
 }
 
 
@@ -77,9 +78,5 @@ h3 {
 .even {
     font-weight: bold;
     background-color: #eee;
-}
-
-.tabtree .tabrow0 li {
-	margin-right: 0px;
 }
 
