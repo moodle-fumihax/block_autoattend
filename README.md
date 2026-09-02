@@ -9,6 +9,7 @@ attendance mode (user clicks a link) are also possible.
 
 ## Moodle Plugins
 - https://moodle.org/plugins/block_autoattend
+- Latest version v2.7.8 is for Moodle 5.x
 
 ## Functions
  This is the block for taking attendance. 
