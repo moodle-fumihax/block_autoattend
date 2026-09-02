@@ -8,9 +8,10 @@ $plugin->component = 'block_autoattend';  // Full name of the plugin (used for d
 $plugin->cron      = 0;
 $plugin->maturity  = MATURITY_STABLE;
 
-$PLUGIN_release    = '2.7.7';
+$PLUGIN_release    = '2.7.8';
 
-$plugin->version   = 2025122200;    // v2.7.7 change layout for Moodle v5
+$plugin->version   = 2026090200;    // v2.7.8 change japanese message
+//$plugin->version = 2025122200;    // v2.7.7 change layout for Moodle v5
 //$plugin->version = 2025071400;    // v2.7.6 summertime -12...+14
 //$plugin->version = 2025022500;    // v2.7.5 fix default locale at jbxl_strftime
 //$plugin->version = 2025020300;    // v2.7.4 strftime(deprecated) -> jbxl_strftime and $plugin->release -> $PLUGIN_release
