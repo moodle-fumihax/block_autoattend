@@ -626,14 +626,36 @@ function autoattend_get_status_num($userid, $courseid, $status)
 //
 function autoattend_get_grade($userid, $courseid)
 {
-    $settings = autoattend_get_grade_settings($courseid);
+    global $DB;
 
-      $grade = 0;
-      foreach ($settings as $setting) {
-          $count = autoattend_get_status_num($userid, $courseid, $setting->status);
-          $grade = $grade + $count * $setting->grade;
-      }
-      
+    $settings = autoattend_get_grade_settings($courseid);
+    if (empty($settings)) return 0;
+
+    $classinfo = autoattend_get_user_class($userid, $courseid, true);
+    $params = array('courseid'=>$courseid, 'userid'=>$userid, 'classid'=>$classinfo->classid);
+    $fields = array();
+    $index = 0;
+    foreach ($settings as $setting) {
+        // Compare statuses in the database to preserve its collation rules.
+        $fields[] = "COUNT(CASE WHEN std.status = :status{$index} THEN 1 END) AS cnt{$index}";
+        $params['status'.$index] = $setting->status;
+        $index++;
+    }
+    $sql = 'SELECT '.implode(', ', $fields).
+           ' FROM {autoattend_students} std'.
+           ' JOIN {autoattend_sessions} ses ON ses.id = std.attsid'.
+           ' WHERE ses.courseid = :courseid AND std.studentid = :userid'.
+           ' AND (ses.classid = :classid OR ses.classid = 0)';
+    $counts = $DB->get_record_sql($sql, $params);
+
+    $grade = 0;
+    $index = 0;
+    foreach ($settings as $setting) {
+        $field = 'cnt'.$index;
+        $grade = $grade + $counts->$field * $setting->grade;
+        $index++;
+    }
+
     return $grade;
 }
 
